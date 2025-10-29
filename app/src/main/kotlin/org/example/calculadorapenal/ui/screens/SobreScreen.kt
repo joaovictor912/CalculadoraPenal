@@ -5,6 +5,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,7 +24,7 @@ fun SobreScreen(navController: NavController) {
                 title = { Text("Sobre o Aplicativo") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, "Voltar")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Voltar")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -95,7 +96,7 @@ fun SobreScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(12.dp))
                     
                     Text(
-                        "Sistema auxiliar para cálculo de dosimetria da pena e valor econômico do crime (VEC), desenvolvido para auxiliar profissionais do Direito na aplicação do método trifásico previsto no artigo 68 do Código Penal Brasileiro.",
+                        "Sistema auxiliar para cálculo de dosimetria da pena e valor econômico do crime (VEC), desenvolvido por Alunos do Insituto Mauá de Tenologia para auxiliar profissionais do Direito na aplicação do método trifásico previsto no artigo 68 do Código Penal Brasileiro.",
                         fontSize = 14.sp,
                         lineHeight = 20.sp
                     )

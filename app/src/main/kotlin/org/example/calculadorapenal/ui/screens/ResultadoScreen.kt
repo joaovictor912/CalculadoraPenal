@@ -5,6 +5,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,7 +24,7 @@ fun ResultadoScreen(navController: NavController) {
                 title = { Text("Resultado da Dosimetria") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, "Voltar")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Voltar")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -93,7 +94,7 @@ fun ResultadoScreen(navController: NavController) {
                         color = MaterialTheme.colorScheme.primary
                     )
                     
-                    Divider(modifier = Modifier.padding(vertical = 12.dp))
+                        HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
                     
                     FaseCalculo(
                         fase = "1ª Fase - Pena Base",
@@ -179,7 +180,7 @@ fun ResultadoScreen(navController: NavController) {
                         justificativa = "Não é possível. Pena superior a 4 anos (Art. 44, I do CP)"
                     )
                     
-                    Divider(modifier = Modifier.padding(vertical = 8.dp))
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                     
                     BeneficioItem(
                         titulo = "Suspensão Condicional da Pena (Sursis)",

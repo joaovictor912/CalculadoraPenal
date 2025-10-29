@@ -4,7 +4,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.AttachMoney
+import androidx.compose.material.icons.filled.Calculate
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Percent
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -27,14 +32,14 @@ fun CalculoVECScreen(navController: NavController) {
     var temReincidencia by remember { mutableStateOf(false) }
     var expandedGravidade by remember { mutableStateOf(false) }
     var resultadoVEC by remember { mutableStateOf<ResultadoVEC?>(null) }
-    
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Cálculo de VEC") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, "Voltar")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Voltar")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -65,7 +70,7 @@ fun CalculoVECScreen(navController: NavController) {
                     verticalAlignment = Alignment.Top
                 ) {
                     Icon(
-                        Icons.Default.Info,
+                        Icons.Filled.Info,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(24.dp)
@@ -78,7 +83,7 @@ fun CalculoVECScreen(navController: NavController) {
                     )
                 }
             }
-            
+
             // Valor Subtraído
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -93,9 +98,9 @@ fun CalculoVECScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(12.dp))
-                    
+
                     OutlinedTextField(
                         value = valorSubtraido,
                         onValueChange = { valorSubtraido = it },
@@ -103,12 +108,12 @@ fun CalculoVECScreen(navController: NavController) {
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text("Ex: 10000.00") },
                         leadingIcon = {
-                            Icon(Icons.Default.AttachMoney, "Valor")
+                            Icon(Icons.Filled.AttachMoney, contentDescription = "Valor")
                         }
                     )
-                    
+
                     Spacer(modifier = Modifier.height(8.dp))
-                    
+
                     OutlinedTextField(
                         value = percentualRecuperado,
                         onValueChange = { percentualRecuperado = it },
@@ -116,12 +121,12 @@ fun CalculoVECScreen(navController: NavController) {
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text("Ex: 30") },
                         leadingIcon = {
-                            Icon(Icons.Default.Percent, "Percentual")
+                            Icon(Icons.Filled.Percent, contentDescription = "Percentual")
                         }
                     )
                 }
             }
-            
+
             // Gravidade do Crime
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -136,9 +141,9 @@ fun CalculoVECScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(12.dp))
-                    
+
                     ExposedDropdownMenuBox(
                         expanded = expandedGravidade,
                         onExpandedChange = { expandedGravidade = !expandedGravidade }
@@ -160,7 +165,7 @@ fun CalculoVECScreen(navController: NavController) {
                                 .fillMaxWidth()
                                 .menuAnchor()
                         )
-                        
+
                         ExposedDropdownMenu(
                             expanded = expandedGravidade,
                             onDismissRequest = { expandedGravidade = false }
@@ -197,7 +202,7 @@ fun CalculoVECScreen(navController: NavController) {
                     }
                 }
             }
-            
+
             // Circunstâncias Pessoais
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -212,9 +217,9 @@ fun CalculoVECScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(12.dp))
-                    
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically
@@ -225,7 +230,7 @@ fun CalculoVECScreen(navController: NavController) {
                         )
                         Text("Possui antecedentes criminais")
                     }
-                    
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically
@@ -238,13 +243,13 @@ fun CalculoVECScreen(navController: NavController) {
                     }
                 }
             }
-            
+
             // Botão Calcular
             Button(
                 onClick = {
                     val valor = valorSubtraido.toDoubleOrNull() ?: 0.0
                     val recuperado = percentualRecuperado.toDoubleOrNull() ?: 0.0
-                    
+
                     val valorEfetivo = valor * (1 - recuperado / 100)
                     val multiplicador = when (gravidadeSelecionada) {
                         GravidadeVEC.MINIMA -> 1.0
@@ -252,12 +257,12 @@ fun CalculoVECScreen(navController: NavController) {
                         GravidadeVEC.GRAVE -> 2.0
                         GravidadeVEC.GRAVISSIMA -> 2.5
                     }
-                    
+
                     val ajusteAntecedentes = if (temAntecedentes) 1.2 else 1.0
                     val ajusteReincidencia = if (temReincidencia) 1.3 else 1.0
-                    
+
                     val vec = valorEfetivo * multiplicador * ajusteAntecedentes * ajusteReincidencia
-                    
+
                     resultadoVEC = ResultadoVEC(
                         valorEconomico = vec,
                         classificacao = when (gravidadeSelecionada) {
@@ -275,7 +280,7 @@ fun CalculoVECScreen(navController: NavController) {
                             if (temAntecedentes) append("• Ajuste antecedentes: 1.2x\n")
                             if (temReincidencia) append("• Ajuste reincidência: 1.3x\n")
                         },
-                        sugestaoMulta = vec * 0.1 // 10% do VEC como sugestão de multa
+                        sugestaoMulta = vec * 0.1 
                     )
                 },
                 modifier = Modifier
@@ -285,11 +290,11 @@ fun CalculoVECScreen(navController: NavController) {
                     containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
-                Icon(Icons.Default.Calculate, "Calcular")
+                Icon(Icons.Filled.Calculate, contentDescription = "Calcular")
                 Spacer(modifier = Modifier.width(8.dp))
                 Text("Calcular VEC", fontSize = 16.sp, fontWeight = FontWeight.Bold)
             }
-            
+
             // Resultado
             resultadoVEC?.let { resultado ->
                 Card(
@@ -304,7 +309,7 @@ fun CalculoVECScreen(navController: NavController) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
-                                Icons.Default.CheckCircle,
+                                Icons.Filled.CheckCircle,
                                 contentDescription = null,
                                 tint = MaterialTheme.colorScheme.tertiary,
                                 modifier = Modifier.size(32.dp)
@@ -317,9 +322,9 @@ fun CalculoVECScreen(navController: NavController) {
                                 color = MaterialTheme.colorScheme.onTertiaryContainer
                             )
                         }
-                        
-                        Divider(modifier = Modifier.padding(vertical = 12.dp))
-                        
+
+                        HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
+
                         Text(
                             "Valor Econômico do Crime (VEC)",
                             fontSize = 14.sp,
@@ -331,9 +336,9 @@ fun CalculoVECScreen(navController: NavController) {
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.tertiary
                         )
-                        
+
                         Spacer(modifier = Modifier.height(12.dp))
-                        
+
                         Text(
                             "Classificação",
                             fontSize = 14.sp,
@@ -344,9 +349,9 @@ fun CalculoVECScreen(navController: NavController) {
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium
                         )
-                        
+
                         Spacer(modifier = Modifier.height(12.dp))
-                        
+
                         Text(
                             "Fundamentação",
                             fontSize = 14.sp,
@@ -358,9 +363,9 @@ fun CalculoVECScreen(navController: NavController) {
                             fontSize = 14.sp,
                             lineHeight = 20.sp
                         )
-                        
+
                         Spacer(modifier = Modifier.height(12.dp))
-                        
+
                         Text(
                             "Sugestão de Pena de Multa",
                             fontSize = 14.sp,

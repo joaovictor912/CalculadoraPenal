@@ -19,7 +19,7 @@ data class CalculoPena(
 )
 
 data class CircunstanciasJudiciais(
-    val culpabilidade: Int = 0, // 0 a 3
+    val culpabilidade: Int = 0,
     val antecedentes: Int = 0,
     val condutaSocial: Int = 0,
     val personalidade: Int = 0,

@@ -4,7 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -36,7 +37,7 @@ fun CalculoPenaScreen(navController: NavController) {
                 title = { Text("Dosimetria da Pena") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, "Voltar")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Voltar") 
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -160,7 +161,6 @@ fun CalculoPenaScreen(navController: NavController) {
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     
-                    // Aqui você pode adicionar checkboxes para agravantes/atenuantes
                     Text(
                         "• Reincidência\n• Confissão espontânea\n• Menoridade relativa\n• Outras...",
                         fontSize = 12.sp,
@@ -195,7 +195,7 @@ fun CalculoPenaScreen(navController: NavController) {
                 }
             }
             
-            // Botão Calcular
+            // Botao Calcular
             Button(
                 onClick = { 
                     navController.navigate("resultado")
@@ -207,7 +207,7 @@ fun CalculoPenaScreen(navController: NavController) {
                     containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
-                Icon(Icons.Default.Calculate, "Calcular")
+                Icon(Icons.Filled.Calculate, "Calcular")
                 Spacer(modifier = Modifier.width(8.dp))
                 Text("Calcular Pena", fontSize = 16.sp, fontWeight = FontWeight.Bold)
             }

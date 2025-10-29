@@ -44,7 +44,6 @@ fun HomeScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Cabeçalho
             Icon(
                 imageVector = Icons.Default.Gavel,
                 contentDescription = "Ícone Justiça",
@@ -95,7 +94,7 @@ fun HomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
             
             // Rodapé
-            Divider()
+            HorizontalDivider()
             
             Text(
                 text = "Versão 1.0 - 2025",
