@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Calculadora Penal</string>
+    <string name="home_title">Sistema de Cálculo de Penas</string>
+    <string name="home_subtitle">Ferramenta auxiliar para cálculo de dosimetria da pena e valor econômico do crime</string>
+    
+    <!-- Menu -->
+    <string name="menu_calculo_pena">Cálculo de Pena</string>
+    <string name="menu_calculo_vec">Cálculo de VEC</string>
+    <string name="menu_sobre">Sobre</string>
+    
+    <!-- Dosimetria -->
+    <string name="dosimetria_title">Dosimetria da Pena</string>
+    <string name="fase1_title">1ª Fase - Circunstâncias Judiciais (Art. 59)</string>
+    <string name="fase2_title">2ª Fase - Agravantes e Atenuantes</string>
+    <string name="fase3_title">3ª Fase - Causas de Aumento/Diminuição</string>
+    
+    <!-- VEC -->
+    <string name="vec_title">Cálculo de VEC</string>
+    <string name="vec_subtitle">VEC - Valor Econômico do Crime</string>
+    <string name="vec_description">Calcule o valor econômico do delito para fundamentação da pena de multa e reparação de danos.</string>
+    
+    <!-- Botões -->
+    <string name="btn_calcular">Calcular</string>
+    <string name="btn_limpar">Limpar</string>
+    <string name="btn_voltar">Voltar</string>
+    <string name="btn_compartilhar">Compartilhar</string>
+    <string name="btn_novo_calculo">Novo Cálculo</string>
+    
+    <!-- Avisos -->
+    <string name="aviso_legal">Este aplicativo é uma ferramenta auxiliar e não substitui a análise jurídica especializada.</string>
+</resources>
