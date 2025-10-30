@@ -131,4 +131,4 @@ Este aplicativo é uma **ferramenta auxiliar** e não substitui a análise jurí
 
 ## 👨‍💻 Desenvolvimento
 
-Desenvolvido com ❤️ em Kotlin usando Android Jetpack Compose.
+ Kotlin usando Android Jetpack Compose.
