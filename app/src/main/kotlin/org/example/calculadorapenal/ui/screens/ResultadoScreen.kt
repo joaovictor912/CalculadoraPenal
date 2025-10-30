@@ -61,15 +61,15 @@ fun ResultadoScreen(navController: NavController) {
                         modifier = Modifier.size(64.dp),
                         tint = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(16.dp))
-                    
+
                     Text(
                         "Pena Definitiva",
                         fontSize = 18.sp,
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
-                    
+
                     Text(
                         "4 anos e 6 meses",
                         fontSize = 32.sp,
@@ -78,7 +78,7 @@ fun ResultadoScreen(navController: NavController) {
                     )
                 }
             }
-            
+
             // Detalhamento das Fases
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -93,21 +93,21 @@ fun ResultadoScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
-                        HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
-                    
+
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
+
                     FaseCalculo(
                         fase = "1ª Fase - Pena Base",
                         descricao = "Circunstâncias judiciais (Art. 59)",
                         valor = "4 anos"
                     )
-                    
+
                     FaseCalculo(
                         fase = "2ª Fase - Pena Provisória",
                         descricao = "Agravantes e atenuantes",
                         valor = "4 anos e 3 meses"
                     )
-                    
+
                     FaseCalculo(
                         fase = "3ª Fase - Pena Definitiva",
                         descricao = "Causas de aumento/diminuição",
@@ -115,7 +115,7 @@ fun ResultadoScreen(navController: NavController) {
                     )
                 }
             }
-            
+
             // Regime Prisional
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -130,9 +130,9 @@ fun ResultadoScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(12.dp))
-                    
+
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             Icons.Default.Home,
@@ -146,9 +146,9 @@ fun ResultadoScreen(navController: NavController) {
                             fontWeight = FontWeight.Bold
                         )
                     }
-                    
+
                     Spacer(modifier = Modifier.height(8.dp))
-                    
+
                     Text(
                         "Conforme art. 33, §2º, 'b' do CP (pena superior a 4 anos e não superior a 8 anos)",
                         fontSize = 14.sp,
@@ -156,7 +156,7 @@ fun ResultadoScreen(navController: NavController) {
                     )
                 }
             }
-            
+
             // Possibilidades de Substituição
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -171,17 +171,17 @@ fun ResultadoScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(12.dp))
-                    
+
                     BeneficioItem(
                         titulo = "Substituição por Penas Restritivas",
                         possivel = false,
                         justificativa = "Não é possível. Pena superior a 4 anos (Art. 44, I do CP)"
                     )
-                    
+
                     HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-                    
+
                     BeneficioItem(
                         titulo = "Suspensão Condicional da Pena (Sursis)",
                         possivel = false,
@@ -189,7 +189,7 @@ fun ResultadoScreen(navController: NavController) {
                     )
                 }
             }
-            
+
             // Botões de Ação
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -203,7 +203,7 @@ fun ResultadoScreen(navController: NavController) {
                     Spacer(modifier = Modifier.width(4.dp))
                     Text("Compartilhar")
                 }
-                
+
                 Button(
                     onClick = { navController.popBackStack() },
                     modifier = Modifier.weight(1f)
@@ -252,9 +252,9 @@ fun BeneficioItem(titulo: String, possivel: Boolean, justificativa: String) {
             tint = if (possivel) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.error,
             modifier = Modifier.size(24.dp)
         )
-        
+
         Spacer(modifier = Modifier.width(8.dp))
-        
+
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 titulo,

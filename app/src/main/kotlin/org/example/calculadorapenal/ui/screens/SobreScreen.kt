@@ -60,16 +60,16 @@ fun SobreScreen(navController: NavController) {
                         modifier = Modifier.size(64.dp),
                         tint = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(12.dp))
-                    
+
                     Text(
                         "Calculadora Penal",
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Text(
                         "Versão 1.0",
                         fontSize = 14.sp,
@@ -77,7 +77,7 @@ fun SobreScreen(navController: NavController) {
                     )
                 }
             }
-            
+
             // Descrição
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -92,9 +92,9 @@ fun SobreScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(12.dp))
-                    
+
                     Text(
                         "Sistema auxiliar para cálculo de dosimetria da pena e valor econômico do crime (VEC), desenvolvido por Alunos do Insituto Mauá de Tenologia para auxiliar profissionais do Direito na aplicação do método trifásico previsto no artigo 68 do Código Penal Brasileiro.",
                         fontSize = 14.sp,
@@ -102,7 +102,7 @@ fun SobreScreen(navController: NavController) {
                     )
                 }
             }
-            
+
             // Funcionalidades
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -117,21 +117,21 @@ fun SobreScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(12.dp))
-                    
+
                     FuncionalidadeItem(
                         icone = Icons.Default.Calculate,
                         titulo = "Dosimetria da Pena",
                         descricao = "Cálculo completo das três fases da dosimetria conforme art. 68 do CP"
                     )
-                    
+
                     FuncionalidadeItem(
                         icone = Icons.Default.AttachMoney,
                         titulo = "Cálculo de VEC",
                         descricao = "Determinação do Valor Econômico do Crime para fundamentação de multa"
                     )
-                    
+
                     FuncionalidadeItem(
                         icone = Icons.Default.Assessment,
                         titulo = "Análise de Benefícios",
@@ -139,7 +139,7 @@ fun SobreScreen(navController: NavController) {
                     )
                 }
             }
-            
+
             // Base Legal
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -154,23 +154,23 @@ fun SobreScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(12.dp))
-                    
+
                     Text(
                         "• Código Penal Brasileiro (Decreto-Lei nº 2.848/1940)\n" +
-                        "• Art. 59 - Circunstâncias judiciais\n" +
-                        "• Art. 68 - Método trifásico\n" +
-                        "• Arts. 61 a 67 - Agravantes e atenuantes\n" +
-                        "• Art. 33 - Regimes prisionais\n" +
-                        "• Art. 44 - Penas restritivas de direitos\n" +
-                        "• Art. 77 - Suspensão condicional da pena",
+                                "• Art. 59 - Circunstâncias judiciais\n" +
+                                "• Art. 68 - Método trifásico\n" +
+                                "• Arts. 61 a 67 - Agravantes e atenuantes\n" +
+                                "• Art. 33 - Regimes prisionais\n" +
+                                "• Art. 44 - Penas restritivas de direitos\n" +
+                                "• Art. 77 - Suspensão condicional da pena",
                         fontSize = 14.sp,
                         lineHeight = 20.sp
                     )
                 }
             }
-            
+
             // Aviso Legal
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -188,9 +188,9 @@ fun SobreScreen(navController: NavController) {
                         tint = MaterialTheme.colorScheme.error,
                         modifier = Modifier.size(24.dp)
                     )
-                    
+
                     Spacer(modifier = Modifier.width(12.dp))
-                    
+
                     Column {
                         Text(
                             "Aviso Legal",
@@ -198,9 +198,9 @@ fun SobreScreen(navController: NavController) {
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.error
                         )
-                        
+
                         Spacer(modifier = Modifier.height(8.dp))
-                        
+
                         Text(
                             "Este aplicativo é uma ferramenta auxiliar e não substitui a análise jurídica especializada. Os cálculos devem ser revisados por profissional habilitado. O desenvolvedor não se responsabiliza por decisões tomadas com base exclusiva nos resultados apresentados.",
                             fontSize = 14.sp,
@@ -210,7 +210,7 @@ fun SobreScreen(navController: NavController) {
                     }
                 }
             }
-            
+
             // Rodapé
             Text(
                 "© 2025 - Calculadora Penal\nTodos os direitos reservados",
@@ -243,9 +243,9 @@ fun FuncionalidadeItem(
             tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier.size(24.dp)
         )
-        
+
         Spacer(modifier = Modifier.width(12.dp))
-        
+
         Column {
             Text(
                 titulo,

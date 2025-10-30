@@ -280,7 +280,7 @@ fun CalculoVECScreen(navController: NavController) {
                             if (temAntecedentes) append("• Ajuste antecedentes: 1.2x\n")
                             if (temReincidencia) append("• Ajuste reincidência: 1.3x\n")
                         },
-                        sugestaoMulta = vec * 0.1 
+                        sugestaoMulta = vec * 0.1
                     )
                 },
                 modifier = Modifier

@@ -29,7 +29,7 @@ Aplicativo Android desenvolvido em Kotlin para auxiliar profissionais do Direito
   - Percentual recuperado
   - Gravidade do crime
   - Antecedentes criminais
-  - Reincidência
+  - Reincidência\S
 - Sugestão de pena de multa
 
 ### 3. Telas Verticais

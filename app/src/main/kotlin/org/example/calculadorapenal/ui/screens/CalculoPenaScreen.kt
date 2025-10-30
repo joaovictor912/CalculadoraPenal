@@ -30,14 +30,14 @@ fun CalculoPenaScreen(navController: NavController) {
     var circunstancias by remember { mutableStateOf(0f) }
     var consequencias by remember { mutableStateOf(0f) }
     var comportamentoVitima by remember { mutableStateOf(0f) }
-    
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Dosimetria da Pena") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Voltar") 
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Voltar")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -70,9 +70,9 @@ fun CalculoPenaScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(12.dp))
-                    
+
                     OutlinedTextField(
                         value = artigo,
                         onValueChange = { artigo = it },
@@ -80,9 +80,9 @@ fun CalculoPenaScreen(navController: NavController) {
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text("Ex: Art. 157, §2º, I") }
                     )
-                    
+
                     Spacer(modifier = Modifier.height(8.dp))
-                    
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -93,7 +93,7 @@ fun CalculoPenaScreen(navController: NavController) {
                             label = { Text("Pena Mínima (meses)") },
                             modifier = Modifier.weight(1f)
                         )
-                        
+
                         OutlinedTextField(
                             value = penaMaxima,
                             onValueChange = { penaMaxima = it },
@@ -103,7 +103,7 @@ fun CalculoPenaScreen(navController: NavController) {
                     }
                 }
             }
-            
+
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
@@ -117,16 +117,16 @@ fun CalculoPenaScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Text(
                         "Avalie de 0 (favorável) a 3 (desfavorável)",
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(top = 4.dp)
                     )
-                    
+
                     Spacer(modifier = Modifier.height(16.dp))
-                    
+
                     CircunstanciaSlider("Culpabilidade", culpabilidade) { culpabilidade = it }
                     CircunstanciaSlider("Antecedentes", antecedentes) { antecedentes = it }
                     CircunstanciaSlider("Conduta Social", condutaSocial) { condutaSocial = it }
@@ -137,7 +137,7 @@ fun CalculoPenaScreen(navController: NavController) {
                     CircunstanciaSlider("Comportamento da Vítima", comportamentoVitima) { comportamentoVitima = it }
                 }
             }
-            
+
             // 2ª Fase: Agravantes e Atenuantes
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -152,15 +152,15 @@ fun CalculoPenaScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(12.dp))
-                    
+
                     Text(
                         "Selecione as circunstâncias aplicáveis:",
                         fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurface
                     )
-                    
+
                     Text(
                         "• Reincidência\n• Confissão espontânea\n• Menoridade relativa\n• Outras...",
                         fontSize = 12.sp,
@@ -169,7 +169,7 @@ fun CalculoPenaScreen(navController: NavController) {
                     )
                 }
             }
-            
+
             // 3ª Fase: Causas de Aumento e Diminuição
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -184,9 +184,9 @@ fun CalculoPenaScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(12.dp))
-                    
+
                     Text(
                         "Causas especiais previstas no tipo penal",
                         fontSize = 14.sp,
@@ -194,17 +194,18 @@ fun CalculoPenaScreen(navController: NavController) {
                     )
                 }
             }
-            
+
             // Botao Calcular
             Button(
-                onClick = { 
+                onClick = {
                     navController.navigate("resultado")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
                 Icon(Icons.Filled.Calculate, "Calcular")
@@ -240,7 +241,7 @@ fun CircunstanciaSlider(
                 color = MaterialTheme.colorScheme.primary
             )
         }
-        
+
         Slider(
             value = value,
             onValueChange = onValueChange,

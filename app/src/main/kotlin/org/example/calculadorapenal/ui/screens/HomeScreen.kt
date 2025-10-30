@@ -22,11 +22,11 @@ fun HomeScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { 
+                title = {
                     Text(
                         "Calculadora Penal",
                         fontWeight = FontWeight.Bold
-                    ) 
+                    )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -48,9 +48,9 @@ fun HomeScreen(navController: NavController) {
                 imageVector = Icons.Default.Gavel,
                 contentDescription = "Ícone Justiça",
                 modifier = Modifier.size(80.dp),
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.tertiary
             )
-            
+
             Text(
                 text = "Sistema de Cálculo de Penas",
                 fontSize = 24.sp,
@@ -58,7 +58,7 @@ fun HomeScreen(navController: NavController) {
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.primary
             )
-            
+
             Text(
                 text = "Ferramenta auxiliar para cálculo de dosimetria da pena e valor econômico do crime",
                 fontSize = 14.sp,
@@ -66,9 +66,9 @@ fun HomeScreen(navController: NavController) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
-            
+
             Spacer(modifier = Modifier.height(8.dp))
-            
+
             // Botões principais
             MenuCard(
                 title = "Cálculo de Pena",
@@ -76,26 +76,26 @@ fun HomeScreen(navController: NavController) {
                 icon = Icons.Default.Calculate,
                 onClick = { navController.navigate(Screen.CalculoPena.route) }
             )
-            
+
             MenuCard(
                 title = "Cálculo de VEC",
                 description = "Calcular Valor Econômico do Crime",
                 icon = Icons.Default.AttachMoney,
                 onClick = { navController.navigate(Screen.CalculoVEC.route) }
             )
-            
+
             MenuCard(
                 title = "Sobre",
                 description = "Informações sobre o aplicativo e legislação",
                 icon = Icons.Default.Info,
                 onClick = { navController.navigate(Screen.Sobre.route) }
             )
-            
+
             Spacer(modifier = Modifier.height(16.dp))
-            
+
             // Rodapé
             HorizontalDivider()
-            
+
             Text(
                 text = "Versão 1.0 - 2025",
                 fontSize = 12.sp,
@@ -135,9 +135,9 @@ fun MenuCard(
                 modifier = Modifier.size(48.dp),
                 tint = MaterialTheme.colorScheme.primary
             )
-            
+
             Spacer(modifier = Modifier.width(16.dp))
-            
+
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.Center
@@ -148,9 +148,9 @@ fun MenuCard(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                
+
                 Spacer(modifier = Modifier.height(4.dp))
-                
+
                 Text(
                     text = description,
                     fontSize = 14.sp,
@@ -158,11 +158,11 @@ fun MenuCard(
                     lineHeight = 18.sp
                 )
             }
-            
+
             Icon(
                 imageVector = Icons.Default.ChevronRight,
                 contentDescription = "Ir para $title",
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.tertiary
             )
         }
     }
