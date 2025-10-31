@@ -109,7 +109,13 @@ fun CalculoVECScreen(navController: NavController) {
                         placeholder = { Text("Ex: 10000.00") },
                         leadingIcon = {
                             Icon(Icons.Filled.AttachMoney, contentDescription = "Valor")
-                        }
+                        },
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = MaterialTheme.colorScheme.tertiary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            cursorColor = MaterialTheme.colorScheme.tertiary,
+                            focusedLabelColor = MaterialTheme.colorScheme.tertiary
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -122,7 +128,13 @@ fun CalculoVECScreen(navController: NavController) {
                         placeholder = { Text("Ex: 30") },
                         leadingIcon = {
                             Icon(Icons.Filled.Percent, contentDescription = "Percentual")
-                        }
+                        },
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = MaterialTheme.colorScheme.tertiary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            cursorColor = MaterialTheme.colorScheme.tertiary,
+                            focusedLabelColor = MaterialTheme.colorScheme.tertiary
+                        )
                     )
                 }
             }
@@ -163,7 +175,13 @@ fun CalculoVECScreen(navController: NavController) {
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .menuAnchor()
+                                .menuAnchor(),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.tertiary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                cursorColor = MaterialTheme.colorScheme.tertiary,
+                                focusedLabelColor = MaterialTheme.colorScheme.tertiary
+                            )
                         )
 
                         ExposedDropdownMenu(
@@ -226,7 +244,12 @@ fun CalculoVECScreen(navController: NavController) {
                     ) {
                         Checkbox(
                             checked = temAntecedentes,
-                            onCheckedChange = { temAntecedentes = it }
+                            onCheckedChange = { temAntecedentes = it },
+                            colors = CheckboxDefaults.colors(
+                                checkedColor = MaterialTheme.colorScheme.tertiary,
+                                uncheckedColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                checkmarkColor = MaterialTheme.colorScheme.onTertiary
+                            )
                         )
                         Text("Possui antecedentes criminais")
                     }
@@ -237,7 +260,12 @@ fun CalculoVECScreen(navController: NavController) {
                     ) {
                         Checkbox(
                             checked = temReincidencia,
-                            onCheckedChange = { temReincidencia = it }
+                            onCheckedChange = { temReincidencia = it },
+                            colors = CheckboxDefaults.colors(
+                                checkedColor = MaterialTheme.colorScheme.tertiary,
+                                uncheckedColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                checkmarkColor = MaterialTheme.colorScheme.onTertiary
+                            )
                         )
                         Text("Reincidente")
                     }

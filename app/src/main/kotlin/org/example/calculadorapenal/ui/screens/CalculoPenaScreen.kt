@@ -75,10 +75,16 @@ fun CalculoPenaScreen(navController: NavController) {
 
                     OutlinedTextField(
                         value = artigo,
-                        onValueChange = { artigo = it },
-                        label = { Text("Artigo do CP") },
+                        onValueChange = { artigo = it.filter { ch -> ch.isDigit() } },
+                        label = { Text("Número do Artigo (ex: 157)") },
                         modifier = Modifier.fillMaxWidth(),
-                        placeholder = { Text("Ex: Art. 157, §2º, I") }
+                        placeholder = { Text("Ex: 157") },
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = MaterialTheme.colorScheme.tertiary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            cursorColor = MaterialTheme.colorScheme.tertiary,
+                            focusedLabelColor = MaterialTheme.colorScheme.tertiary
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -91,14 +97,26 @@ fun CalculoPenaScreen(navController: NavController) {
                             value = penaMinima,
                             onValueChange = { penaMinima = it },
                             label = { Text("Pena Mínima (meses)") },
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.tertiary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                cursorColor = MaterialTheme.colorScheme.tertiary,
+                                focusedLabelColor = MaterialTheme.colorScheme.tertiary
+                            )
                         )
 
                         OutlinedTextField(
                             value = penaMaxima,
                             onValueChange = { penaMaxima = it },
                             label = { Text("Pena Máxima (meses)") },
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.tertiary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                cursorColor = MaterialTheme.colorScheme.tertiary,
+                                focusedLabelColor = MaterialTheme.colorScheme.tertiary
+                            )
                         )
                     }
                 }
@@ -160,6 +178,22 @@ fun CalculoPenaScreen(navController: NavController) {
                         color = MaterialTheme.colorScheme.onSurface
                     )
 
+                    // Exemplo de checkboxes com cores ajustadas (quando forem adicionados)
+                    /*
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Checkbox(
+                            checked = false,
+                            onCheckedChange = {},
+                            colors = CheckboxDefaults.colors(
+                                checkedColor = MaterialTheme.colorScheme.tertiary,
+                                uncheckedColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                checkmarkColor = MaterialTheme.colorScheme.onTertiary
+                            )
+                        )
+                        Text("Reincidência")
+                    }
+                    */
+
                     Text(
                         "• Reincidência\n• Confissão espontânea\n• Menoridade relativa\n• Outras...",
                         fontSize = 12.sp,
@@ -197,6 +231,66 @@ fun CalculoPenaScreen(navController: NavController) {
             // Botao Calcular
             Button(
                 onClick = {
+                    // Parse inputs
+                    val artNumber = artigo.trim()
+                    val penaMin = penaMinima.toIntOrNull() ?: 0
+                    val penaMax = penaMaxima.toIntOrNull() ?: 0
+
+                    // 1) Pena base: média simples entre mínima e máxima (em meses)
+                    val penaBase = if (penaMin > 0 && penaMax > 0) {
+                        (penaMin + penaMax) / 2
+                    } else {
+                        0
+                    }
+
+                    // 2) Soma das circunstâncias (0..24)
+                    val somaCircunstancias = (culpabilidade + antecedentes + condutaSocial + personalidade + motivos + circunstancias + consequencias + comportamentoVitima).toInt()
+
+                    // 3) Ajuste: aplicamos 5% por ponto acima/abaixo do ponto médio (12)
+                    val ajustePercentual = (somaCircunstancias - 12) * 0.05
+                    val fatorAjuste = 1 + ajustePercentual
+
+                    // 4) Pena provisória (aplica o ajuste à pena base)
+                    val penaProvisoria = kotlin.math.round(penaBase * fatorAjuste).toInt().coerceAtLeast(0)
+
+                    // 5) Por enquanto não há causas especiais informadas -> pena definitiva = provisória
+                    val penaDefinitiva = penaProvisoria
+
+                    // 6) Regime prisional básico (simplificado):
+                    val regime = when {
+                        penaDefinitiva > 96 -> RegimePrisional.FECHADO
+                        penaDefinitiva > 48 -> RegimePrisional.SEMIABERTO
+                        else -> RegimePrisional.ABERTO
+                    }
+
+                    val substituicaoPossivel = penaDefinitiva <= 48
+                    val sursisPossivel = penaDefinitiva <= 24
+
+                    val detalhamento = buildString {
+                        append("Artigo: ${if (artNumber.isNotEmpty()) "Art. $artNumber" else "-"}\n")
+                        append("Pena mínima: ${penaMin} meses\n")
+                        append("Pena máxima: ${penaMax} meses\n")
+                        append("Pena base (média): ${penaBase} meses\n")
+                        append("Pontuação circunstâncias: $somaCircunstancias (0..24)\n")
+                        append("Fator de ajuste aplicado: ${"%.2f".format(fatorAjuste)}x\n")
+                        append("Pena provisória: ${penaProvisoria} meses\n")
+                        append("Pena definitiva: ${penaDefinitiva} meses\n")
+                        append("Regime estimado: $regime\n")
+                        append("Substituição por penas restritivas possível: ${if (substituicaoPossivel) "Sim" else "Não"}\n")
+                        append("Sursis possível: ${if (sursisPossivel) "Sim" else "Não"}\n")
+                    }
+
+                    // Store result in shared repository to be read by ResultadoScreen
+                    ResultadoPenaStore.ultimo = ResultadoCalculo(
+                        penaBase = penaBase,
+                        penaProvisoria = penaProvisoria,
+                        penaDefinitiva = penaDefinitiva,
+                        regimePrisional = regime,
+                        substituicaoPossivel = substituicaoPossivel,
+                        sursisPossivel = sursisPossivel,
+                        detalhamento = detalhamento
+                    )
+
                     navController.navigate("resultado")
                 },
                 modifier = Modifier

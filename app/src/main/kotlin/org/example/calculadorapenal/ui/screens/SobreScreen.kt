@@ -240,7 +240,7 @@ fun FuncionalidadeItem(
         Icon(
             icone,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
+            tint = MaterialTheme.colorScheme.secondary,
             modifier = Modifier.size(24.dp)
         )
 

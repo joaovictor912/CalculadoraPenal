@@ -47,7 +47,7 @@ enum class RegimePrisional {
 }
 
 data class ResultadoCalculo(
-    val penaBase: Int, // em meses
+    val penaBase: Int, 
     val penaProvisoria: Int,
     val penaDefinitiva: Int,
     val regimePrisional: RegimePrisional,

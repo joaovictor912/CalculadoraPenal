@@ -14,10 +14,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import org.example.calculadorapenal.model.ResultadoPenaStore
+import androidx.compose.ui.text.style.TextAlign
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ResultadoScreen(navController: NavController) {
+    val resultado = ResultadoPenaStore.ultimo
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -59,7 +63,7 @@ fun ResultadoScreen(navController: NavController) {
                         Icons.Default.CheckCircle,
                         contentDescription = null,
                         modifier = Modifier.size(64.dp),
-                        tint = MaterialTheme.colorScheme.primary
+                        tint = MaterialTheme.colorScheme.tertiary
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -71,10 +75,12 @@ fun ResultadoScreen(navController: NavController) {
                     )
 
                     Text(
-                        "4 anos e 6 meses",
+                        resultado?.let { "${it.penaDefinitiva / 12} anos e ${it.penaDefinitiva % 12} meses" } ?: "-",
                         fontSize = 32.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.tertiary,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center
                     )
                 }
             }
@@ -96,22 +102,10 @@ fun ResultadoScreen(navController: NavController) {
 
                     HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
 
-                    FaseCalculo(
-                        fase = "1ª Fase - Pena Base",
-                        descricao = "Circunstâncias judiciais (Art. 59)",
-                        valor = "4 anos"
-                    )
-
-                    FaseCalculo(
-                        fase = "2ª Fase - Pena Provisória",
-                        descricao = "Agravantes e atenuantes",
-                        valor = "4 anos e 3 meses"
-                    )
-
-                    FaseCalculo(
-                        fase = "3ª Fase - Pena Definitiva",
-                        descricao = "Causas de aumento/diminuição",
-                        valor = "4 anos e 6 meses"
+                    Text(
+                        resultado?.detalhamento ?: "Nenhum cálculo realizado.",
+                        fontSize = 14.sp,
+                        lineHeight = 20.sp
                     )
                 }
             }
@@ -141,7 +135,7 @@ fun ResultadoScreen(navController: NavController) {
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            "REGIME SEMIABERTO",
+                            resultado?.regimePrisional?.name ?: "-",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -150,9 +144,13 @@ fun ResultadoScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        "Conforme art. 33, §2º, 'b' do CP (pena superior a 4 anos e não superior a 8 anos)",
-                        fontSize = 14.sp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        resultado?.let {
+                            when (it.regimePrisional) {
+                                org.example.calculadorapenal.model.RegimePrisional.FECHADO -> "Conforme art. 33, §2º, 'a' do CP (pena superior a 8 anos)"
+                                org.example.calculadorapenal.model.RegimePrisional.SEMIABERTO -> "Conforme art. 33, §2º, 'b' do CP (pena superior a 4 anos e não superior a 8 anos)"
+                                org.example.calculadorapenal.model.RegimePrisional.ABERTO -> "Conforme art. 33, §2º, 'c' do CP (pena igual ou inferior a 4 anos)"
+                            }
+                        } ?: ""
                     )
                 }
             }
@@ -176,16 +174,16 @@ fun ResultadoScreen(navController: NavController) {
 
                     BeneficioItem(
                         titulo = "Substituição por Penas Restritivas",
-                        possivel = false,
-                        justificativa = "Não é possível. Pena superior a 4 anos (Art. 44, I do CP)"
+                        possivel = resultado?.substituicaoPossivel ?: false,
+                        justificativa = if (resultado?.substituicaoPossivel == true) "Possível de acordo com art. 44 do CP" else "Não é possível. Pena superior a 4 anos (Art. 44, I do CP)"
                     )
 
                     HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
                     BeneficioItem(
                         titulo = "Suspensão Condicional da Pena (Sursis)",
-                        possivel = false,
-                        justificativa = "Não é possível. Pena superior a 2 anos (Art. 77 do CP)"
+                        possivel = resultado?.sursisPossivel ?: false,
+                        justificativa = if (resultado?.sursisPossivel == true) "Possível de acordo com art. 77 do CP" else "Não é possível. Pena superior a 2 anos (Art. 77 do CP)"
                     )
                 }
             }
