@@ -114,17 +114,6 @@ O aplicativo baseia-se na legislação brasileira:
 
 Este aplicativo é uma **ferramenta auxiliar** e não substitui a análise jurídica especializada por profissional habilitado. Os cálculos devem ser revisados e validados antes de serem utilizados em procedimentos oficiais.
 
-##  Melhorias Futuras
-
-- [ ] Implementar ViewModels para gerenciamento de estado
-- [ ] Adicionar persistência de dados (Room Database)
-- [ ] Implementar exportação de resultados em PDF
-- [ ] Adicionar histórico de cálculos
-- [ ] Incluir banco de dados de crimes comuns
-- [ ] Implementar compartilhamento de resultados
-- [ ] Adicionar modo escuro
-- [ ] Testes unitários e de integração
-
 ##  Licença
 
 © 2025 - Calculadora Penal. Todos os direitos reservados.
