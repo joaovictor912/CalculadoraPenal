@@ -47,7 +47,7 @@ fun ResultadoScreen(navController: NavController) {
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                    containerColor = MaterialTheme.colorScheme.surface
                 ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
@@ -91,7 +91,7 @@ fun ResultadoScreen(navController: NavController) {
                         "Detalhamento do Cálculo",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.secondary
                     )
 
                     HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
@@ -120,7 +120,7 @@ fun ResultadoScreen(navController: NavController) {
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    containerColor = MaterialTheme.colorScheme.surface
                 )
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -128,7 +128,7 @@ fun ResultadoScreen(navController: NavController) {
                         "Regime Prisional Inicial",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.secondary
                     )
 
                     Spacer(modifier = Modifier.height(12.dp))
@@ -169,7 +169,7 @@ fun ResultadoScreen(navController: NavController) {
                         "Análise de Benefícios",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.secondary
                     )
 
                     Spacer(modifier = Modifier.height(12.dp))
@@ -206,7 +206,10 @@ fun ResultadoScreen(navController: NavController) {
 
                 Button(
                     onClick = { navController.popBackStack() },
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondary
+                    )
                 ) {
                     Icon(Icons.Default.Edit, "Novo Cálculo")
                     Spacer(modifier = Modifier.width(4.dp))

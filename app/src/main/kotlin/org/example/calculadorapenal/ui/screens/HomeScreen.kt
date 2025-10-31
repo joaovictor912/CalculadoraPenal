@@ -15,10 +15,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.example.calculadorapenal.navigation.Screen
+import org.example.calculadorapenal.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(
+    navController: NavController,
+    appTheme: AppTheme,
+    onToggleTheme: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -31,7 +36,16 @@ fun HomeScreen(navController: NavController) {
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     titleContentColor = MaterialTheme.colorScheme.onPrimary
-                )
+                ),
+                actions = {
+                    IconButton(onClick = onToggleTheme) {
+                        Icon(
+                            imageVector = if (appTheme == AppTheme.Dark) Icons.Default.LightMode else Icons.Default.DarkMode,
+                            contentDescription = if (appTheme == AppTheme.Dark) "Tema claro" else "Tema escuro",
+                            tint = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
+                }
             )
         }
     ) { paddingValues ->
@@ -56,7 +70,7 @@ fun HomeScreen(navController: NavController) {
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.secondary
             )
 
             Text(
@@ -133,7 +147,7 @@ fun MenuCard(
                 imageVector = icon,
                 contentDescription = title,
                 modifier = Modifier.size(48.dp),
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.secondary
             )
 
             Spacer(modifier = Modifier.width(16.dp))

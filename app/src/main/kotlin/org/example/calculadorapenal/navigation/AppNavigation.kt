@@ -5,9 +5,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.example.calculadorapenal.ui.screens.*
+import org.example.calculadorapenal.ui.theme.AppTheme
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(
+    appTheme: AppTheme,
+    onToggleTheme: () -> Unit
+) {
     val navController = rememberNavController()
     
     NavHost(
@@ -15,7 +19,11 @@ fun AppNavigation() {
         startDestination = Screen.Home.route
     ) {
         composable(Screen.Home.route) {
-            HomeScreen(navController = navController)
+            HomeScreen(
+                navController = navController,
+                appTheme = appTheme,
+                onToggleTheme = onToggleTheme
+            )
         }
         
         composable(Screen.CalculoPena.route) {

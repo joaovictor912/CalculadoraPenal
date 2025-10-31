@@ -1,7 +1,6 @@
 package org.example.calculadorapenal.ui.theme
 
 import android.app.Activity
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
@@ -12,13 +11,18 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+enum class AppTheme { Dark, Light }
+
 private val DarkColorScheme = darkColorScheme(
-    primary = PrimaryNavy,
-    secondary = SecondaryNavy,
-    tertiary = AccentOrange,
+    primary = Navy,
+    secondary = BlueBright,
+    tertiary = Orange,
     background = BackgroundDark,
     surface = SurfaceDark,
     surfaceVariant = SurfaceVariantDark,
+    primaryContainer = PrimaryContainerDark,
+    secondaryContainer = SecondaryContainerDark,
+    tertiaryContainer = TertiaryContainerDark,
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.Black,
@@ -28,14 +32,17 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = PrimaryNavy,
-    secondary = SecondaryNavy,
-    tertiary = AccentOrange,
+    primary = BlueLight_Primary,
+    secondary = BlueLight_Secondary,
+    tertiary = Orange_Light,
     background = BackgroundLight,
-    surface = CardBackground,
+    surface = SurfaceVariantLight, // make cards/painéis contrast against white background
     surfaceVariant = SurfaceVariantLight,
-    onPrimary = CardBackground,
-    onSecondary = CardBackground,
+    primaryContainer = PrimaryContainerLight,
+    secondaryContainer = SecondaryContainerLight,
+    tertiaryContainer = TertiaryContainerLight,
+    onPrimary = Color.White,
+    onSecondary = Color.White,
     onTertiary = Color.Black,
     onBackground = TextPrimary,
     onSurface = TextPrimary,
@@ -44,13 +51,11 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun CalculadoraPenalTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    appTheme: AppTheme,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    val isDark = appTheme == AppTheme.Dark
+    val colorScheme = if (isDark) DarkColorScheme else LightColorScheme
 
     val view = LocalView.current
     if (!view.isInEditMode) {
@@ -58,7 +63,7 @@ fun CalculadoraPenalTheme(
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.primary.toArgb()
             // Dark icons on light theme; light icons on dark theme
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !isDark
         }
     }
 

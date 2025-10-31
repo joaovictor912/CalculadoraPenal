@@ -60,7 +60,7 @@ fun CalculoPenaScreen(navController: NavController) {
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    containerColor = MaterialTheme.colorScheme.surface
                 )
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -68,7 +68,7 @@ fun CalculoPenaScreen(navController: NavController) {
                         "Dados do Crime",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.secondary
                     )
 
                     Spacer(modifier = Modifier.height(12.dp))
@@ -115,13 +115,12 @@ fun CalculoPenaScreen(navController: NavController) {
                         "1ª Fase - Circunstâncias Judiciais (Art. 59)",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.secondary
                     )
 
                     Text(
                         "Avalie de 0 (favorável) a 3 (desfavorável)",
                         fontSize = 12.sp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(top = 4.dp)
                     )
 
@@ -142,7 +141,7 @@ fun CalculoPenaScreen(navController: NavController) {
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    containerColor = MaterialTheme.colorScheme.surface
                 )
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -150,7 +149,7 @@ fun CalculoPenaScreen(navController: NavController) {
                         "2ª Fase - Agravantes e Atenuantes",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.secondary
                     )
 
                     Spacer(modifier = Modifier.height(12.dp))
@@ -182,7 +181,7 @@ fun CalculoPenaScreen(navController: NavController) {
                         "3ª Fase - Causas de Aumento/Diminuição",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.secondary
                     )
 
                     Spacer(modifier = Modifier.height(12.dp))
@@ -238,7 +237,6 @@ fun CircunstanciaSlider(
                 },
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary
             )
         }
 
@@ -247,7 +245,14 @@ fun CircunstanciaSlider(
             onValueChange = onValueChange,
             valueRange = 0f..3f,
             steps = 2,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = SliderDefaults.colors(
+                activeTrackColor = MaterialTheme.colorScheme.secondary,
+                inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                thumbColor = MaterialTheme.colorScheme.tertiary,
+                activeTickColor = MaterialTheme.colorScheme.onSecondary,
+                inactiveTickColor = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         )
     }
 }

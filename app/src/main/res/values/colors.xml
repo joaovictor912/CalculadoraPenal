@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary_blue">#1976D2</color>
-    <color name="secondary_blue">#42A5F5</color>
-    <color name="accent_orange">#FF9800</color>
+    <!-- Simplified brand palette -->
+    <color name="primary_blue">#0B1F3B</color> <!-- Navy background -->
+    <color name="secondary_blue">#2F6DB5</color> <!-- Lighter blue for buttons -->
+    <color name="accent_orange">#D9944A</color> <!-- Secondary accent -->
+
+    <!-- Minimal neutrals for XML-based components -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="background_light">#F5F5F5</color>
+    <color name="background_light">#FFFFFF</color>
     <color name="card_background">#FFFFFF</color>
-    <color name="text_primary">#212121</color>
-    <color name="text_secondary">#757575</color>
+    <color name="text_primary">#1F2937</color>
+    <color name="text_secondary">#6B7280</color>
 </resources>
