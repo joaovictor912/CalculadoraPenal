@@ -1,10 +1,10 @@
 # Calculadora Penal - Aplicativo Android
 
-## 📱 Descrição
+##  Descrição
 
 Aplicativo Android desenvolvido em Kotlin para auxiliar profissionais do Direito no cálculo de dosimetria da pena e do Valor Econômico do Crime (VEC).
 
-## 🎯 Funcionalidades
+##  Funcionalidades
 
 ### 1. Dosimetria da Pena
 - **1ª Fase**: Cálculo da pena base através das 8 circunstâncias judiciais (Art. 59 do CP)
@@ -37,7 +37,7 @@ Aplicativo Android desenvolvido em Kotlin para auxiliar profissionais do Direito
 - Layout responsivo com scroll vertical
 - Design Material 3
 
-## 🏗️ Arquitetura
+##  Arquitetura
 
 O aplicativo foi desenvolvido seguindo os padrões modernos do Android:
 
@@ -47,7 +47,7 @@ O aplicativo foi desenvolvido seguindo os padrões modernos do Android:
 - **Arquitetura**: MVVM (preparado para ViewModels)
 - **Design**: Material Design 3
 
-## 📂 Estrutura do Projeto
+##  Estrutura do Projeto
 
 ```
 app/
@@ -79,7 +79,7 @@ app/
 │           └── themes.xml
 ```
 
-## 🚀 Como Executar
+##  Como Executar
 
 ### Pré-requisitos
 - Android Studio Hedgehog (2023.1.1) ou superior
@@ -92,13 +92,13 @@ app/
 3. Conecte um dispositivo Android ou inicie um emulador
 4. Execute o app (Run > Run 'app')
 
-## 📱 Requisitos do Dispositivo
+##  Requisitos do Dispositivo
 
 - **Mínimo**: Android 7.0 (API 24)
 - **Recomendado**: Android 14 (API 34)
 - **Orientação**: Retrato (Portrait)
 
-## ⚖️ Base Legal
+##  Base Legal
 
 O aplicativo baseia-se na legislação brasileira:
 
@@ -110,11 +110,11 @@ O aplicativo baseia-se na legislação brasileira:
 - Art. 44 - Penas restritivas de direitos
 - Art. 77 - Suspensão condicional da pena
 
-## ⚠️ Aviso Legal
+##  Aviso Legal
 
 Este aplicativo é uma **ferramenta auxiliar** e não substitui a análise jurídica especializada por profissional habilitado. Os cálculos devem ser revisados e validados antes de serem utilizados em procedimentos oficiais.
 
-## 🛠️ Melhorias Futuras
+##  Melhorias Futuras
 
 - [ ] Implementar ViewModels para gerenciamento de estado
 - [ ] Adicionar persistência de dados (Room Database)
@@ -125,10 +125,10 @@ Este aplicativo é uma **ferramenta auxiliar** e não substitui a análise jurí
 - [ ] Adicionar modo escuro
 - [ ] Testes unitários e de integração
 
-## 📄 Licença
+##  Licença
 
 © 2025 - Calculadora Penal. Todos os direitos reservados.
 
-## 👨‍💻 Desenvolvimento
+##  Desenvolvimento
 
  Kotlin usando Android Jetpack Compose.
