@@ -73,7 +73,7 @@ fun SobreScreen(navController: NavController) {
                     Text(
                         "Versão 1.0",
                         fontSize = 14.sp,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                        color = MaterialTheme.colorScheme.secondary
                     )
                 }
             }

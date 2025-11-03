@@ -66,7 +66,7 @@ fun HomeScreen(
             )
 
             Text(
-                text = "Sistema de Cálculo de Penas",
+                text = "Calculadora Penal",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
@@ -74,7 +74,7 @@ fun HomeScreen(
             )
 
             Text(
-                text = "Ferramenta auxiliar para cálculo de dosimetria da pena e valor econômico do crime",
+                text = "Cálculo de VEC e Execução Penal",
                 fontSize = 14.sp,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -85,13 +85,6 @@ fun HomeScreen(
 
             // Botões principais
             MenuCard(
-                title = "Cálculo de Pena",
-                description = "Realizar dosimetria da pena conforme art. 68 do CP",
-                icon = Icons.Default.Calculate,
-                onClick = { navController.navigate(Screen.CalculoPena.route) }
-            )
-
-            MenuCard(
                 title = "Cálculo de VEC",
                 description = "Calcular Valor Econômico do Crime",
                 icon = Icons.Default.AttachMoney,
@@ -99,8 +92,15 @@ fun HomeScreen(
             )
 
             MenuCard(
+                title = "Execução Penal",
+                description = "Calcular progressão de regime e livramento condicional",
+                icon = Icons.Default.Gavel,
+                onClick = { navController.navigate(Screen.CalculoExecucaoPenal.route) }
+            )
+
+            MenuCard(
                 title = "Sobre",
-                description = "Informações sobre o aplicativo e legislação",
+                description = "Informações sobre o aplicativo e autoria",
                 icon = Icons.Default.Info,
                 onClick = { navController.navigate(Screen.Sobre.route) }
             )

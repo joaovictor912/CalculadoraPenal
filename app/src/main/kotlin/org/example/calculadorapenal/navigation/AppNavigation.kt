@@ -26,20 +26,21 @@ fun AppNavigation(
             )
         }
         
-        composable(Screen.CalculoPena.route) {
-            CalculoPenaScreen(navController = navController)
-        }
-        
         composable(Screen.CalculoVEC.route) {
             CalculoVECScreen(navController = navController)
         }
         
-        composable(Screen.Resultado.route) {
-            ResultadoScreen(navController = navController)
+        composable(Screen.CalculoExecucaoPenal.route) {
+            CalculoExecucaoPenalScreen(navController = navController)
         }
         
+        composable(Screen.ResultadoExecucao.route) {
+            ResultadoExecucaoPenalScreen(navController = navController)
+        }
+
         composable(Screen.Sobre.route) {
             SobreScreen(navController = navController)
         }
     }
 }
+
