@@ -3,12 +3,14 @@ package org.example.calculadorapenal.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -16,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.example.calculadorapenal.navigation.Screen
 import org.example.calculadorapenal.ui.theme.AppTheme
+import org.example.calculadorapenal.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,11 +61,18 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Icon(
-                imageVector = Icons.Default.Gavel,
-                contentDescription = "Ícone Justiça",
-                modifier = Modifier.size(80.dp),
-                tint = MaterialTheme.colorScheme.tertiary
+            // Logo da empresa que muda conforme o tema
+            Image(
+                painter = painterResource(
+                    id = if (appTheme == AppTheme.Dark) 
+                        R.drawable.logo_dark 
+                    else 
+                        R.drawable.logo_light
+                ),
+                contentDescription = "Logo Cespedes Lourenço Advogados",
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .padding(vertical = 16.dp)
             )
 
             Text(

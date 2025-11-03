@@ -37,6 +37,10 @@ fun AppNavigation(
         composable(Screen.ResultadoExecucao.route) {
             ResultadoExecucaoPenalScreen(navController = navController)
         }
+        
+        composable(Screen.ResultadoVEC.route) {
+            ResultadoVECScreen(navController = navController)
+        }
 
         composable(Screen.Sobre.route) {
             SobreScreen(navController = navController)

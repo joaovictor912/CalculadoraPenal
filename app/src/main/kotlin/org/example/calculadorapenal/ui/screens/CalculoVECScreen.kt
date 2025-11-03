@@ -5,6 +5,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Article
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -38,7 +40,7 @@ fun CalculoVECScreen(navController: NavController) {
                 title = { Text("Cálculo de VEC") },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.Default.ArrowBack, "Voltar")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Voltar")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -188,7 +190,7 @@ fun CalculoVECScreen(navController: NavController) {
                         onValueChange = { numeroProcesso = it },
                         label = { Text("Número do Processo (opcional)") },
                         leadingIcon = {
-                            Icon(Icons.Default.Article, "Processo")
+                            Icon(Icons.AutoMirrored.Filled.Article, "Processo")
                         },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
@@ -266,7 +268,7 @@ fun CalculoVECScreen(navController: NavController) {
                                     
                                     val resultado = VECCalculator.calcular(dados)
                                     ResultadoVECStore.ultimoResultado = resultado
-                                    navController.navigate(Screen.ResultadoExecucao.route)
+                                    navController.navigate(Screen.ResultadoVEC.route)
                                 }
                             } catch (e: Exception) {
                                 mostrarErro = true

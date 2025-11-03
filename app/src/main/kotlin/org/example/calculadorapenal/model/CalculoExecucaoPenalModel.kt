@@ -13,9 +13,7 @@ enum class TipoCrime {
     HEDIONDO_MORTE             // Crimes hediondos com resultado morte
 }
 
-/**
- * Representa o status do apenado
- */
+
 enum class StatusApenado {
     PRIMARIO,
     REINCIDENTE

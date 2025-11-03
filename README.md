@@ -1,89 +1,96 @@
-# Calculadora Penal (Android)
+## Calculadora Penal (Android)
 
-Aplicativo Android em Kotlin para auxiliar no cálculo de Execução Penal e do Valor Econômico do Crime (VEC), com interface moderna em Jetpack Compose.
+Calculadora Penal é um aplicativo Android desenvolvido para auxiliar profissionais do direito e operadores do sistema penitenciário no cálculo de execução penal e em estimativas relacionadas ao Valor Econômico do Crime (VEC).
 
-##  Funcionalidades
+Este repositório contém o código-fonte do aplicativo Android (Kotlin + Jetpack Compose) e instruções para build e execução.
 
-- Execução Penal
-  - Cálculo de datas de progressão de regime considerando: pena total, data de início, detração, tipo de crime e status do apenado.
-  - Estimativa de livramento condicional conforme frações legais aplicáveis.
-- VEC (Valor Econômico do Crime)
-  - Cálculo do VEC a partir dos dados informados, com apresentação do resultado e dados de contato opcionais.
-- Sobre
-  - Informações institucionais do app, versão e aviso legal.
+## Principais funcionalidades
 
-##  Estrutura (resumo)
+- Cálculo de execução penal: estimativas de progressão de regime, livramento condicional e datas relevantes a partir de dados de pena, início, detração e natureza do crime.
+- Cálculo do Valor Econômico do Crime (VEC) a partir dos parâmetros informados.
+- Tela de Sobre com referências legais e aviso sobre o uso dos resultados.
 
-```
+## Estrutura resumida do projeto
+
+```text
 app/
   src/main/
     AndroidManifest.xml
-    kotlin/org/example/calculadorapenal/
-      MainActivity.kt
-      navigation/
-        AppNavigation.kt
-        Screen.kt
-      model/
-        CalculoExecucaoPenalModel.kt
-        CalculoVECModel.kt
-      ui/screens/
-        HomeScreen.kt
-        CalculoVECScreen.kt
-        CalculoExecucaoPenalScreen.kt
-        ResultadoExecucaoPenalScreen.kt
-        SobreScreen.kt
-      ui/theme/
-        Color.kt
-        Theme.kt
-        Type.kt
+    kotlin/... (código fonte em Kotlin)
+    res/ (recursos: layouts, imagens, strings)
 ```
 
 ## Como executar
 
-### Requisitos
-- Android Studio 2023.1.1 (Hedgehog) ou superior
+### Requisitos de desenvolvimento
+
+- Android Studio (versão compatível com o Android Gradle Plugin usado no projeto)
 - JDK 17
-- Android SDK API 34 (recomendado) e API 24 (mínimo)
+- Android SDK com as APIs alvo e mínimas definidas no `build.gradle` (ex.: API 24+)
 
-### Android Studio
-1) Abra a pasta do projeto no Android Studio
-2) Aguarde o Sync do Gradle
-3) Conecte um dispositivo ou abra um emulador
-4) Run > Run 'app'
+### Executando pelo Android Studio
 
-### Linha de comando (Windows PowerShell)
+1. Abra a pasta do projeto no Android Studio.
+2. Aguarde o sync do Gradle e a indexação.
+3. Conecte um dispositivo Android ou inicie um emulador.
+4. Clique em Run > Run 'app'.
 
-No diretório raiz do projeto:
+### Executando pela linha de comando (Windows PowerShell)
+
+No diretório raiz do projeto execute:
 
 ```powershell
-./gradlew.bat clean
-./gradlew.bat assembleDebug
-# Com dispositivo/emulador conectado:
-./gradlew.bat installDebug
+.
+\gradlew.bat clean; \gradlew.bat assembleDebug
+# Para instalar no dispositivo/emulador conectado:
+\gradlew.bat installDebug
 ```
 
-##  Requisitos do dispositivo
+> Observação: em PowerShell, use `\\gradlew.bat` ou `./gradlew.bat` conforme preferir.
+
+## Requisitos do dispositivo
 
 - Mínimo: Android 7.0 (API 24)
 - Recomendado: Android 14 (API 34)
-- Orientação: Retrato
+- Orientação da UI: retrato
 
-## ⚖️ Base legal (referências)
+## Base legal
+
+As funcionalidades deste aplicativo foram concebidas com base na legislação brasileira aplicável, entre outras referências:
 
 - Código Penal Brasileiro (Decreto-Lei nº 2.848/1940)
-- Art. 33 (regimes) e Art. 83 (livramento condicional)
-- LEP – Lei de Execução Penal (progressões)
+- Lei de Execução Penal (LEP)
+- Artigos relevantes do Código Penal relacionados a regimes de cumprimento e livramento condicional
 
-Observação: O módulo de Execução Penal aplica frações legais de forma parametrizada, considerando tipo de crime e status do apenado, e apresenta estimativas de datas de progressão e livramento para apoio à análise.
+As referências acima são indicativas; para aplicação prática, consulte sempre a legislação atualizada e a jurisprudência pertinente.
 
 ## Aviso legal
 
-Este aplicativo é uma ferramenta auxiliar e não substitui a análise jurídica especializada. Os resultados devem ser revisados por profissional habilitado antes de qualquer uso oficial.
+Este software fornece estimativas e ferramentas de apoio à análise jurídica. Não substitui a avaliação de um profissional habilitado. Os resultados disponibilizados pelo aplicativo devem ser verificados por advogados ou especialistas antes de qualquer uso oficial ou decisório.
 
-##  Contribuição
+## Contribuição
 
-Sinta-se à vontade para abrir issues e pull requests. Sugestões são bem-vindas.
+Contribuições são bem-vindas. Para contribuir:
 
-##  Licença
+1. Abra uma issue descrevendo o bug ou feature desejada.
+2. Crie uma branch com a sua modificação: `feature/nome-da-feature`.
+3. Abra um pull request apontando para `main`.
 
-© 2025 — Calculadora Penal. Todos os direitos reservados.
+Siga as boas práticas de commits e escreva testes quando aplicável.
+
+## Licença
+
+Este projeto está disponível sob a licença MIT — veja o arquivo `LICENSE` para detalhes. Se preferir outro modelo de licença, entre em contato com os autores.
+
+## Autores
+
+- João Victor Pessoa de Lima dos Anjos
+- João Paulo Bonaguiro Ramirez
+
+## Contato
+
+Para dúvidas, sugestões ou problemas, abra uma issue neste repositório ou entre em contato com os autores.
+
+---
+
+Última atualização: 2025

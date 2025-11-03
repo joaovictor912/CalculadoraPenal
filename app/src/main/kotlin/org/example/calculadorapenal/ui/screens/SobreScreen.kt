@@ -96,7 +96,42 @@ fun SobreScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        "Sistema auxiliar para cálculo de dosimetria da pena e valor econômico do crime (VEC), desenvolvido por Alunos do Insituto Mauá de Tenologia para auxiliar profissionais do Direito na aplicação do método trifásico previsto no artigo 68 do Código Penal Brasileiro.",
+                        "Sistema auxiliar para cálculo de Execução Penal e Valor Econômico do Crime (VEC), " +
+                                "desenvolvido para auxiliar profissionais do Direito na aplicação da Lei de Execução Penal e legislação relacionada.",
+                        fontSize = 14.sp,
+                        lineHeight = 20.sp
+                    )
+                }
+            }
+            
+            // Informações da Empresa
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        "Desenvolvido por",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.secondary
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Text(
+                        "Cespedes Lourenço Advogados",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        lineHeight = 20.sp
+                    )
+                    
+                    Spacer(modifier = Modifier.height(4.dp))
+                    
+                    Text(
+                        "Em parceria com o Instituto Mauá de Tecnologia",
                         fontSize = 14.sp,
                         lineHeight = 20.sp
                     )
@@ -121,9 +156,9 @@ fun SobreScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(12.dp))
 
                     FuncionalidadeItem(
-                        icone = Icons.Default.Calculate,
-                        titulo = "Dosimetria da Pena",
-                        descricao = "Cálculo completo das três fases da dosimetria conforme art. 68 do CP"
+                        icone = Icons.Default.Gavel,
+                        titulo = "Execução Penal",
+                        descricao = "Cálculo de progressão de regime e livramento condicional conforme a LEP"
                     )
 
                     FuncionalidadeItem(
@@ -133,9 +168,9 @@ fun SobreScreen(navController: NavController) {
                     )
 
                     FuncionalidadeItem(
-                        icone = Icons.Default.Assessment,
-                        titulo = "Análise de Benefícios",
-                        descricao = "Verificação automática de possibilidade de sursis e substituição"
+                        icone = Icons.Default.CalendarToday,
+                        titulo = "Análise de Datas",
+                        descricao = "Cálculo de datas previstas para benefícios penais com detração"
                     )
                 }
             }
@@ -158,13 +193,13 @@ fun SobreScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        "• Código Penal Brasileiro (Decreto-Lei nº 2.848/1940)\n" +
-                                "• Art. 59 - Circunstâncias judiciais\n" +
-                                "• Art. 68 - Método trifásico\n" +
-                                "• Arts. 61 a 67 - Agravantes e atenuantes\n" +
+                        "• Lei de Execução Penal (Lei nº 7.210/1984)\n" +
+                                "• Art. 112 da LEP - Progressão de regime\n" +
+                                "• Lei 13.964/2019 - Pacote Anticrime\n" +
+                                "• Código Penal Brasileiro (Decreto-Lei nº 2.848/1940)\n" +
                                 "• Art. 33 - Regimes prisionais\n" +
-                                "• Art. 44 - Penas restritivas de direitos\n" +
-                                "• Art. 77 - Suspensão condicional da pena",
+                                "• Art. 83 - Livramento condicional\n" +
+                                "• Súmula 441 STJ - Detração penal",
                         fontSize = 14.sp,
                         lineHeight = 20.sp
                     )

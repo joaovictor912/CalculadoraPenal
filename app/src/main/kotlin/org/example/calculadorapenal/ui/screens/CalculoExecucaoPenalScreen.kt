@@ -115,7 +115,7 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                             modifier = Modifier.weight(1f),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             placeholder = { Text("0") },
-                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = MaterialTheme.colorScheme.tertiary,
                                 unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                                 cursorColor = MaterialTheme.colorScheme.tertiary,
@@ -130,7 +130,7 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                             modifier = Modifier.weight(1f),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             placeholder = { Text("0") },
-                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = MaterialTheme.colorScheme.tertiary,
                                 unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                                 cursorColor = MaterialTheme.colorScheme.tertiary,
@@ -145,7 +145,7 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                             modifier = Modifier.weight(1f),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             placeholder = { Text("0") },
-                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = MaterialTheme.colorScheme.tertiary,
                                 unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                                 cursorColor = MaterialTheme.colorScheme.tertiary,
@@ -182,7 +182,7 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                         leadingIcon = {
                             Icon(Icons.Filled.CalendarToday, "Data")
                         },
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = MaterialTheme.colorScheme.tertiary,
                             unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             cursorColor = MaterialTheme.colorScheme.tertiary,
@@ -205,7 +205,7 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                         supportingText = {
                             Text("Tempo já cumprido em prisão provisória", fontSize = 12.sp)
                         },
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = MaterialTheme.colorScheme.tertiary,
                             unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             cursorColor = MaterialTheme.colorScheme.tertiary,
@@ -252,7 +252,7 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .menuAnchor(),
-                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                            colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = MaterialTheme.colorScheme.tertiary,
                                 unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                                 cursorColor = MaterialTheme.colorScheme.tertiary,
@@ -332,7 +332,7 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .menuAnchor(),
-                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                            colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = MaterialTheme.colorScheme.tertiary,
                                 unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                                 cursorColor = MaterialTheme.colorScheme.tertiary,
