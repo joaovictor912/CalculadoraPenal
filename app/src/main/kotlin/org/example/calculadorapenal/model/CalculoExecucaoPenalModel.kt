@@ -3,14 +3,11 @@ package org.example.calculadorapenal.model
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-/**
- * Representa o tipo de crime para fins de cálculo de execução penal
- */
 enum class TipoCrime {
-    COMUM,                      // Crimes comuns
-    VIOLENCIA_GRAVE_AMEACA,    // Crimes com violência ou grave ameaça
-    HEDIONDO,                  // Crimes hediondos
-    HEDIONDO_MORTE             // Crimes hediondos com resultado morte
+    COMUM,
+    VIOLENCIA_GRAVE_AMEACA,
+    HEDIONDO,
+    HEDIONDO_MORTE
 }
 
 
@@ -19,9 +16,6 @@ enum class StatusApenado {
     REINCIDENTE
 }
 
-/**
- * Dados de entrada para cálculo de execução penal
- */
 data class DadosExecucaoPenal(
     val penaAnos: Int = 0,
     val penaMeses: Int = 0,
@@ -32,38 +26,30 @@ data class DadosExecucaoPenal(
     val statusApenado: StatusApenado = StatusApenado.PRIMARIO
 )
 
-/**
- * Resultado do cálculo de execução penal
- */
 data class ResultadoExecucaoPenal(
     val penaTotalDias: Int,
     val dataInicioCumprimento: LocalDate,
-    val dataInicioEfetivo: LocalDate, // Com detração aplicada
+    val dataInicioEfetivo: LocalDate,
     val diasDetracao: Int,
     val tipoCrime: TipoCrime,
     val statusApenado: StatusApenado,
-    
-    // Datas de progressão
+
     val dataProgressaoSemiaberto: LocalDate?,
     val percentualProgressaoSemiaberto: Double,
     val diasParaProgressaoSemiaberto: Int,
-    
+
     val dataProgressaoAberto: LocalDate?,
     val percentualProgressaoAberto: Double,
     val diasParaProgressaoAberto: Int,
-    
-    // Livramento condicional
+
     val dataLivramentoCondicional: LocalDate?,
     val fracaoLivramento: String,
     val diasParaLivramento: Int,
     val livramentoVedado: Boolean,
-    
+
     val detalhamento: String
 )
 
-/**
- * Dados de contato do usuário (para a tela de resultados)
- */
 data class ContatoUsuario(
     val nomeCompleto: String = "",
     val whatsapp: String = "",
@@ -71,41 +57,28 @@ data class ContatoUsuario(
     val numeroProcesso: String = ""
 )
 
-/**
- * Calculadora de Execução Penal
- */
 object ExecucaoPenalCalculator {
-    
-    /**
-     * Calcula a execução penal conforme a LEP e Código Penal
-     */
+
     fun calcular(dados: DadosExecucaoPenal): ResultadoExecucaoPenal {
-        // 1. Calcular pena total em dias
         val penaTotalDias = (dados.penaAnos * 365) + (dados.penaMeses * 30) + dados.penaDias
-        
-        // 2. Aplicar detração (antecipa o início do cumprimento)
         val dataInicioEfetivo = dados.dataInicioCumprimento.minusDays(dados.diasDetracao.toLong())
-        
-        // 3. Determinar percentuais para progressão de regime
+
         val (percentualSemiaberto, percentualAberto) = obterPercentuaisProgressao(
             dados.tipoCrime, 
             dados.statusApenado
         )
-        
-        // 4. Calcular dias necessários para cada progressão
+
         val diasParaSemiaberto = (penaTotalDias * percentualSemiaberto).toInt()
         val diasParaAberto = (penaTotalDias * percentualAberto).toInt()
-        
-        // 5. Calcular datas de progressão
+
         val dataProgressaoSemiaberto = dataInicioEfetivo.plusDays(diasParaSemiaberto.toLong())
         val dataProgressaoAberto = dataInicioEfetivo.plusDays(diasParaAberto.toLong())
-        
-        // 6. Calcular livramento condicional
+
         val (fracaoLivramento, livramentoVedado) = obterFracaoLivramento(
             dados.tipoCrime, 
             dados.statusApenado
         )
-        
+
         val diasParaLivramento = if (!livramentoVedado) {
             when (fracaoLivramento) {
                 "1/3" -> penaTotalDias / 3
@@ -116,14 +89,13 @@ object ExecucaoPenalCalculator {
         } else {
             0
         }
-        
+
         val dataLivramentoCondicional = if (!livramentoVedado) {
             dataInicioEfetivo.plusDays(diasParaLivramento.toLong())
         } else {
             null
         }
-        
-        // 7. Gerar detalhamento
+
         val detalhamento = gerarDetalhamento(
             penaTotalDias, 
             dados, 
@@ -132,7 +104,7 @@ object ExecucaoPenalCalculator {
             fracaoLivramento,
             livramentoVedado
         )
-        
+
         return ResultadoExecucaoPenal(
             penaTotalDias = penaTotalDias,
             dataInicioCumprimento = dados.dataInicioCumprimento,
@@ -153,11 +125,7 @@ object ExecucaoPenalCalculator {
             detalhamento = detalhamento
         )
     }
-    
-    /**
-     * Retorna os percentuais de progressão para regime semiaberto e aberto
-     * Conforme Lei 13.964/2019 (Pacote Anticrime) e jurisprudência
-     */
+
     private fun obterPercentuaisProgressao(
         tipoCrime: TipoCrime, 
         status: StatusApenado
@@ -165,8 +133,8 @@ object ExecucaoPenalCalculator {
         return when (tipoCrime) {
             TipoCrime.COMUM -> {
                 when (status) {
-                    StatusApenado.PRIMARIO -> Pair(0.16, 0.16)  // 16% para semiaberto, depois mais 16% para aberto
-                    StatusApenado.REINCIDENTE -> Pair(0.20, 0.20) // 20% para semiaberto, depois mais 20% para aberto
+                    StatusApenado.PRIMARIO -> Pair(0.16, 0.16)
+                    StatusApenado.REINCIDENTE -> Pair(0.20, 0.20)
                 }
             }
             TipoCrime.VIOLENCIA_GRAVE_AMEACA -> {
@@ -189,11 +157,7 @@ object ExecucaoPenalCalculator {
             }
         }
     }
-    
-    /**
-     * Retorna a fração necessária para livramento condicional e se é vedado
-     * Conforme art. 83 do Código Penal
-     */
+
     private fun obterFracaoLivramento(
         tipoCrime: TipoCrime, 
         status: StatusApenado
@@ -209,14 +173,11 @@ object ExecucaoPenalCalculator {
                 Pair("2/3", false)
             }
             TipoCrime.HEDIONDO_MORTE -> {
-                Pair("Vedado", true) // Livramento vedado para hediondo com morte
+                Pair("Vedado", true)
             }
         }
     }
-    
-    /**
-     * Gera detalhamento do cálculo
-     */
+
     private fun gerarDetalhamento(
         penaTotalDias: Int,
         dados: DadosExecucaoPenal,
@@ -303,10 +264,7 @@ object ExecucaoPenalCalculator {
             TipoCrime.HEDIONDO_MORTE -> "Art. 83, V do CP (Vedado)"
         }
     }
-    
-    /**
-     * Converte pena total em string legível
-     */
+
     fun formatarPena(anos: Int, meses: Int, dias: Int): String {
         val partes = mutableListOf<String>()
         if (anos > 0) partes.add("$anos ano${if (anos > 1) "s" else ""}")

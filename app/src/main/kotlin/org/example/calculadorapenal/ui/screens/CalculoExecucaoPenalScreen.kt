@@ -61,7 +61,6 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Informações
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
@@ -87,7 +86,6 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                 }
             }
 
-            // Pena Total
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
@@ -156,7 +154,6 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                 }
             }
 
-            // Data de Início e Detração
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
@@ -215,7 +212,6 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                 }
             }
 
-            // Tipo de Crime
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
@@ -297,7 +293,6 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                 }
             }
 
-            // Status do Apenado
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
@@ -363,7 +358,6 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                 }
             }
 
-            // Mensagem de erro
             if (mostrarErro) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -389,7 +383,6 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                 }
             }
 
-            // Botão Calcular
             Button(
                 onClick = {
                     try {
@@ -410,7 +403,6 @@ fun CalculoExecucaoPenalScreen(navController: NavController) {
                             return@Button
                         }
 
-                        // Parse da data
                         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
                         val dataInicioLocal = try {
                             LocalDate.parse(dataInicio, formatter)

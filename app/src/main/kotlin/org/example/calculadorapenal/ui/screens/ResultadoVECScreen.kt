@@ -9,6 +9,8 @@ import androidx.compose.material.icons.automirrored.filled.Article
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -17,6 +19,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.example.calculadorapenal.model.ResultadoVECStore
+import org.example.calculadorapenal.R
+import android.content.Intent
+import android.net.Uri
+import java.net.URLEncoder
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -44,7 +50,6 @@ fun ResultadoVECScreen(navController: NavController) {
         }
     ) { paddingValues ->
         if (resultado == null) {
-            // Caso não haja resultado
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -77,7 +82,6 @@ fun ResultadoVECScreen(navController: NavController) {
                 }
             }
         } else {
-            // Exibir resultado
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -131,7 +135,6 @@ fun ResultadoVECScreen(navController: NavController) {
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        // Valor dos Bens
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
@@ -160,7 +163,6 @@ fun ResultadoVECScreen(navController: NavController) {
 
                         HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
 
-                        // Valor Econômico do Crime (VEC)
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
@@ -183,7 +185,6 @@ fun ResultadoVECScreen(navController: NavController) {
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        // Informação sobre o cálculo
                         Card(
                             colors = CardDefaults.cardColors(
                                 containerColor = MaterialTheme.colorScheme.secondaryContainer
@@ -211,7 +212,6 @@ fun ResultadoVECScreen(navController: NavController) {
                     }
                 }
 
-                // Dados de Contato (se fornecidos)
                 resultado.contatoUsuario?.let { contato ->
                     Card(
                         modifier = Modifier.fillMaxWidth(),
@@ -220,6 +220,7 @@ fun ResultadoVECScreen(navController: NavController) {
                         )
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
+                            val context = LocalContext.current
                             Text(
                                 "Dados de Contato",
                                 fontSize = 18.sp,
@@ -229,7 +230,6 @@ fun ResultadoVECScreen(navController: NavController) {
 
                             Spacer(modifier = Modifier.height(12.dp))
 
-                            // Nome
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Icon(
                                     Icons.Default.Person,
@@ -253,8 +253,48 @@ fun ResultadoVECScreen(navController: NavController) {
                             }
 
                             Spacer(modifier = Modifier.height(12.dp))
+                            Spacer(modifier = Modifier.height(16.dp))
 
-                            // WhatsApp
+                            // Botão de contato via WhatsApp (CTA)
+                            Button(
+                                onClick = {
+                                    val officeRaw = context.getString(R.string.office_whatsapp)
+                                    val numeroLimpo = officeRaw.filter { it.isDigit() }
+                                        .let { digits ->
+                                            var d = digits
+                                            if (d.startsWith("0")) d = d.drop(1)
+                                            if (!d.startsWith("55")) "55$d" else d
+                                        }
+
+                                    val mensagem = buildString {
+                                        append("Olá, meu nome é ")
+                                        append(contato.nomeCompleto.ifBlank { "(não informado)" })
+                                        append(". Fiz um cálculo no app Calculadora Penal e gostaria de orientação. ")
+                                        append("Valor dos bens: ")
+                                        append(formatadorMoeda.format(resultado.valorBens))
+                                        append(" | VEC: ")
+                                        append(formatadorMoeda.format(resultado.valorVEC))
+                                        if (contato.numeroProcesso.isNotBlank()) {
+                                            append(" | Processo: ")
+                                            append(contato.numeroProcesso)
+                                        }
+                                    }
+
+                                    val url = "https://wa.me/$numeroLimpo?text=" +
+                                            URLEncoder.encode(mensagem, "UTF-8")
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                    context.startActivity(intent)
+                                },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.tertiary
+                                )
+                            ) {
+                                Icon(Icons.Default.Send, contentDescription = null)
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(stringResource(id = R.string.cta_falar_advogado))
+                            }
+
+
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Icon(
                                     Icons.Default.Phone,
@@ -277,7 +317,6 @@ fun ResultadoVECScreen(navController: NavController) {
                                 }
                             }
 
-                            // Email (se fornecido)
                             if (contato.email.isNotBlank()) {
                                 Spacer(modifier = Modifier.height(12.dp))
                                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -303,7 +342,6 @@ fun ResultadoVECScreen(navController: NavController) {
                                 }
                             }
 
-                            // Número do Processo (se fornecido)
                             if (contato.numeroProcesso.isNotBlank()) {
                                 Spacer(modifier = Modifier.height(12.dp))
                                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -332,7 +370,6 @@ fun ResultadoVECScreen(navController: NavController) {
                     }
                 }
 
-                // Próximos Passos
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
@@ -370,7 +407,6 @@ fun ResultadoVECScreen(navController: NavController) {
                     }
                 }
 
-                // Botões de Ação
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)

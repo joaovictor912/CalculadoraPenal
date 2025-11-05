@@ -10,7 +10,7 @@ import androidx.activity.ComponentActivity
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : ComponentActivity() {
     
-    private val SPLASH_DELAY = 2500L // 2,5 s
+    private val SPLASH_DELAY = 2500L
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -34,6 +34,17 @@ fun CalculoVECScreen(navController: NavController) {
     var mostrarErro by remember { mutableStateOf(false) }
     var mensagemErro by remember { mutableStateOf("") }
 
+    // Validação dinâmica do WhatsApp (10 ou 11 dígitos)
+    val whatsappDigits = remember(whatsapp) { whatsapp.filter { it.isDigit() } }
+    val whatsappValido = remember(whatsappDigits) { whatsappDigits.length == 10 || whatsappDigits.length == 11 }
+
+    val customTextFieldColors = OutlinedTextFieldDefaults.colors(
+        focusedBorderColor = MaterialTheme.colorScheme.tertiary,
+        unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+        cursorColor = MaterialTheme.colorScheme.tertiary,
+        focusedLabelColor = MaterialTheme.colorScheme.tertiary
+    )
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -120,7 +131,8 @@ fun CalculoVECScreen(navController: NavController) {
                         },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                         modifier = Modifier.fillMaxWidth(),
-                        singleLine = true
+                        singleLine = true,
+                        colors = customTextFieldColors
                     )
                 }
             }
@@ -142,7 +154,7 @@ fun CalculoVECScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.secondary
                     )
-                    
+
                     Text(
                         text = "Preencha os dados abaixo para receber orientação jurídica",
                         fontSize = 14.sp,
@@ -157,12 +169,15 @@ fun CalculoVECScreen(navController: NavController) {
                             Icon(Icons.Default.Person, "Nome")
                         },
                         modifier = Modifier.fillMaxWidth(),
-                        singleLine = true
+                        singleLine = true,
+                        colors = customTextFieldColors
                     )
 
                     OutlinedTextField(
                         value = whatsapp,
-                        onValueChange = { whatsapp = it },
+                        onValueChange = { input ->
+                            whatsapp = formatarTelefoneBR(input)
+                        },
                         label = { Text("WhatsApp *") },
                         placeholder = { Text("(00) 00000-0000") },
                         leadingIcon = {
@@ -170,7 +185,14 @@ fun CalculoVECScreen(navController: NavController) {
                         },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                         modifier = Modifier.fillMaxWidth(),
-                        singleLine = true
+                        singleLine = true,
+                        isError = whatsapp.isNotBlank() && !whatsappValido,
+                        supportingText = {
+                            if (whatsapp.isNotBlank() && !whatsappValido) {
+                                Text("Informe DDD + número com 10 ou 11 dígitos")
+                            }
+                        },
+                        colors = customTextFieldColors
                     )
 
                     OutlinedTextField(
@@ -182,18 +204,22 @@ fun CalculoVECScreen(navController: NavController) {
                         },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                         modifier = Modifier.fillMaxWidth(),
-                        singleLine = true
+                        singleLine = true,
+                        colors = customTextFieldColors
                     )
 
                     OutlinedTextField(
                         value = numeroProcesso,
-                        onValueChange = { numeroProcesso = it },
+                        onValueChange = { input ->
+                            numeroProcesso = formatarNumeroProcessoCNJ(input)
+                        },
                         label = { Text("Número do Processo (opcional)") },
                         leadingIcon = {
                             Icon(Icons.AutoMirrored.Filled.Article, "Processo")
                         },
                         modifier = Modifier.fillMaxWidth(),
-                        singleLine = true
+                        singleLine = true,
+                        colors = customTextFieldColors
                     )
 
                     Text(
@@ -236,8 +262,7 @@ fun CalculoVECScreen(navController: NavController) {
             Button(
                 onClick = {
                     mostrarErro = false
-                    
-                    // Validações
+
                     when {
                         valorBens.isBlank() -> {
                             mostrarErro = true
@@ -250,6 +275,10 @@ fun CalculoVECScreen(navController: NavController) {
                         whatsapp.isBlank() -> {
                             mostrarErro = true
                             mensagemErro = "Por favor, informe seu WhatsApp"
+                        }
+                        !whatsappValido -> {
+                            mostrarErro = true
+                            mensagemErro = "WhatsApp inválido. Use (00) 0000-0000 ou (00) 00000-0000"
                         }
                         else -> {
                             try {
@@ -265,7 +294,7 @@ fun CalculoVECScreen(navController: NavController) {
                                         email = email.trim(),
                                         numeroProcesso = numeroProcesso.trim()
                                     )
-                                    
+
                                     val resultado = VECCalculator.calcular(dados)
                                     ResultadoVECStore.ultimoResultado = resultado
                                     navController.navigate(Screen.ResultadoVEC.route)
@@ -281,7 +310,7 @@ fun CalculoVECScreen(navController: NavController) {
                     .fillMaxWidth()
                     .height(56.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
+                    containerColor = MaterialTheme.colorScheme.tertiary
                 )
             ) {
                 Icon(
@@ -300,4 +329,53 @@ fun CalculoVECScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
+}
+
+// formatação processos
+private fun formatarNumeroProcessoCNJ(input: String): String {
+    val digits = input.filter { it.isDigit() }.take(20)
+    if (digits.isEmpty()) return ""
+
+    val segmentos = intArrayOf(7, 2, 4, 1, 2, 4)
+    val pontoApos = setOf(1, 2, 3, 4)
+    val b = StringBuilder()
+    var pos = 0
+    for ((idx, tam) in segmentos.withIndex()) {
+        if (pos >= digits.length) break
+        val take = kotlin.math.min(tam, digits.length - pos)
+        b.append(digits, pos, pos + take)
+        pos += take
+        if (take == tam && idx in pontoApos && pos < digits.length) b.append('.')
+    }
+    return b.toString()
+}
+
+// formatação telefone/whatsapp (BR)
+private fun formatarTelefoneBR(input: String): String {
+    val digits = input.filter { it.isDigit() }.take(11)
+    if (digits.isEmpty()) return ""
+
+    val len = digits.length
+    val ddd = digits.take(2)
+    val rest = if (len > 2) digits.substring(2) else ""
+
+    val sb = StringBuilder()
+    sb.append("(")
+    sb.append(ddd)
+    if (ddd.length == 2) sb.append(") ") else return sb.toString()
+
+    if (rest.isEmpty()) return sb.toString()
+
+    // 10 dígitos totais -> 4-4; 11 dígitos totais -> 5-4
+    val isMobile = len == 11
+    val firstBlockSize = if (isMobile) 5 else 4
+
+    if (rest.length <= firstBlockSize) {
+        sb.append(rest)
+    } else {
+        sb.append(rest.substring(0, firstBlockSize))
+        sb.append('-')
+        sb.append(rest.substring(firstBlockSize))
+    }
+    return sb.toString()
 }

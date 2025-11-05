@@ -61,7 +61,6 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Logo da empresa que muda conforme o tema
             Image(
                 painter = painterResource(
                     id = if (appTheme == AppTheme.Dark) 
@@ -93,7 +92,6 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Botões principais
             MenuCard(
                 title = "Cálculo de VEC",
                 description = "Calcular Valor Econômico do Crime",
@@ -117,7 +115,6 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Rodapé
             HorizontalDivider()
 
             Text(

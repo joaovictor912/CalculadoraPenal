@@ -103,7 +103,7 @@ fun SobreScreen(navController: NavController) {
                     )
                 }
             }
-            
+
             // Informações da Empresa
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -122,16 +122,16 @@ fun SobreScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        "Cespedes Lourenço Advogados",
+                        "Alunos do Instituto Mauá de Tecnologia",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold,
                         lineHeight = 20.sp
                     )
-                    
+
                     Spacer(modifier = Modifier.height(4.dp))
-                    
+
                     Text(
-                        "Em parceria com o Instituto Mauá de Tecnologia",
+                        "Em parceria com Cespedes Lourenço Advogados",
                         fontSize = 14.sp,
                         lineHeight = 20.sp
                     )

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Simplified brand palette -->
-    <color name="primary_blue">#0B1F3B</color> <!-- Navy background -->
-    <color name="secondary_blue">#2F6DB5</color> <!-- Lighter blue for buttons -->
-    <color name="accent_orange">#D9944A</color> <!-- Secondary accent -->
 
-    <!-- Minimal neutrals for XML-based components -->
+    <color name="primary_blue">#0B1F3B</color>
+    <color name="secondary_blue">#2F6DB5</color>
+    <color name="accent_orange">#D9944A</color>
+
+
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="background_light">#FFFFFF</color>
     <color name="card_background">#FFFFFF</color>
     <color name="text_primary">#1F2937</color>
     <color name="text_secondary">#6B7280</color>
-    
-    <color name="splash_background">#001F54</color> <!-- Azul Cespedes Lourenço -->
+
+    <color name="splash_background">#000C50</color>
 </resources>
