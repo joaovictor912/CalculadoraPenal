@@ -1,23 +1,20 @@
 package org.example.calculadorapenal
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.activity.ComponentActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
-@SuppressLint("CustomSplashScreen")
 class SplashActivity : ComponentActivity() {
     
-    private val SPLASH_DELAY = 2500L
-    
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
+        
         super.onCreate(savedInstanceState)
-        Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }, SPLASH_DELAY)
+        
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        
+        finish()
     }
 }

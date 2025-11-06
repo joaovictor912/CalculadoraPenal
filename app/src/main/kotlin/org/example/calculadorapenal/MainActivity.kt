@@ -17,6 +17,8 @@ import org.example.calculadorapenal.navigation.AppNavigation
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Switch from splash theme to the app theme as soon as the Activity starts
+        setTheme(R.style.Theme_CalculadoraPenal)
         super.onCreate(savedInstanceState)
         setContent {
             var appTheme by remember { mutableStateOf(AppTheme.Dark) }
