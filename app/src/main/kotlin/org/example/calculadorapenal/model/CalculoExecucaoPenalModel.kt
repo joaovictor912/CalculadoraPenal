@@ -192,15 +192,15 @@ object ExecucaoPenalCalculator {
         val diasRestantes = (penaTotalDias % 365) % 30
         
         return buildString {
-            append("═══ CÁLCULO DE EXECUÇÃO PENAL ═══\n\n")
+            append(" CÁLCULO DE EXECUÇÃO PENAL\n\n")
             
-            append("📋 DADOS DA PENA:\n")
+            append("DADOS DA PENA:\n")
             append("Pena Total: $anos ano(s), $mesesRestantes mês(es) e $diasRestantes dia(s)\n")
             append("Total em dias: $penaTotalDias dias\n")
             append("Tipo de Crime: ${obterNomeTipoCrime(dados.tipoCrime)}\n")
             append("Status: ${if (dados.statusApenado == StatusApenado.PRIMARIO) "Primário" else "Reincidente"}\n\n")
             
-            append("📅 DATAS DE CUMPRIMENTO:\n")
+            append("DATAS DE CUMPRIMENTO:\n")
             append("Data de Início: ${dados.dataInicioCumprimento.format(formatter)}\n")
             if (dados.diasDetracao > 0) {
                 append("Detração Aplicada: ${dados.diasDetracao} dias\n")
@@ -208,7 +208,7 @@ object ExecucaoPenalCalculator {
             }
             append("\n")
             
-            append("⚖️ PROGRESSÃO DE REGIME:\n")
+            append("PROGRESSÃO DE REGIME:\n")
             append("Para Regime Semiaberto:\n")
             append("  • Percentual: ${(percentualSemiaberto * 100).toInt()}%\n")
             append("  • Base Legal: ${obterBaseLegalProgressao(dados.tipoCrime, dados.statusApenado)}\n\n")
@@ -217,7 +217,7 @@ object ExecucaoPenalCalculator {
             append("  • Percentual: ${(percentualAberto * 100).toInt()}% (cumulativo)\n")
             append("  • Aplicado após progressão ao semiaberto\n\n")
             
-            append("🔓 LIVRAMENTO CONDICIONAL:\n")
+            append(" LIVRAMENTO CONDICIONAL:\n")
             if (livramentoVedado) {
                 append("  • VEDADO por lei (Crime hediondo com resultado morte)\n")
                 append("  • Base Legal: Art. 83, V do CP\n")
@@ -227,7 +227,7 @@ object ExecucaoPenalCalculator {
             }
             
             append("\n")
-            append("⚠️ OBSERVAÇÕES IMPORTANTES:\n")
+            append(" OBSERVAÇÕES IMPORTANTES:\n")
             append("• As datas são estimativas que dependem de bom comportamento carcerário\n")
             append("• Pode ser necessário exame criminológico\n")
             append("• Remição por trabalho/estudo pode antecipar as datas\n")
