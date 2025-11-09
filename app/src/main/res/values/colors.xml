@@ -13,7 +13,6 @@
     <color name="text_primary">#1F2937</color>
     <color name="text_secondary">#6B7280</color>
 
-    <color name="fundo_app_azul">#001f5a</color>
-    <!-- Cor do fundo da splash (mesma do material da arte) -->
+    <color name="fundo_app_azul">#000C50</color>
     <color name="splash_background">@color/fundo_app_azul</color>
 </resources>

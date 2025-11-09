@@ -1,41 +1,40 @@
 package org.example.calculadorapenal.ui.screens
 
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Article
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import org.example.calculadorapenal.model.ResultadoVECStore
 import org.example.calculadorapenal.R
-import android.content.Intent
-import android.net.Uri
+import org.example.calculadorapenal.model.ResultadoRemicaoStore
 import java.net.URLEncoder
-import java.text.NumberFormat
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ResultadoVECScreen(navController: NavController) {
-    val resultado = ResultadoVECStore.ultimoResultado
-    val formatadorMoeda = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+fun ResultadoRemicaoScreen(navController: NavController) {
+    val resultado = ResultadoRemicaoStore.ultimoResultado
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Resultado do Cálculo VEC") },
+                title = { Text("Resultado do Cálculo de Remição") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, "Voltar")
@@ -77,7 +76,12 @@ fun ResultadoVECScreen(navController: NavController) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(24.dp))
-                Button(onClick = { navController.popBackStack() }) {
+                Button(
+                    onClick = { navController.popBackStack() },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.tertiary
+                    )
+                ) {
                     Text("Voltar")
                 }
             }
@@ -94,7 +98,7 @@ fun ResultadoVECScreen(navController: NavController) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer
+                        containerColor = MaterialTheme.colorScheme.surface
                     )
                 ) {
                     Column(
@@ -105,20 +109,51 @@ fun ResultadoVECScreen(navController: NavController) {
                             Icons.Default.CheckCircle,
                             contentDescription = null,
                             modifier = Modifier.size(48.dp),
-                            tint = MaterialTheme.colorScheme.primary
+                            tint = MaterialTheme.colorScheme.secondary
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             "Cálculo Realizado com Sucesso",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            color = MaterialTheme.colorScheme.secondary,
                             textAlign = TextAlign.Center
                         )
                     }
                 }
 
-                // Valores Calculados
+                // Card de Resultado Principal
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(24.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            "Total de Dias Remidos",
+                            fontSize = 16.sp,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            "${resultado.totalDiasRemidos}",
+                            fontSize = 48.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.tertiary
+                        )
+                        Text(
+                            "dia${if (resultado.totalDiasRemidos != 1) "s" else ""} de pena remidos",
+                            fontSize = 14.sp,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                }
+
+                // Detalhamento do Cálculo
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
@@ -127,7 +162,7 @@ fun ResultadoVECScreen(navController: NavController) {
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
-                            "Valores Calculados",
+                            "Detalhamento do Cálculo",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.secondary
@@ -135,56 +170,85 @@ fun ResultadoVECScreen(navController: NavController) {
 
                         Spacer(modifier = Modifier.height(16.dp))
 
+                        // Remição por Trabalho
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Column {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(
+                                        Icons.Default.Work,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.secondary,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(
+                                        "Remição por Trabalho",
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = MaterialTheme.colorScheme.secondary
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(4.dp))
                                 Text(
-                                    "Valor dos Bens",
-                                    fontSize = 14.sp,
+                                    "${resultado.diasTrabalhados} dias trabalhados",
+                                    fontSize = 12.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
-                                Text(
-                                    formatadorMoeda.format(resultado.valorBens),
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
                             }
-                            Icon(
-                                Icons.Default.AttachMoney,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.secondary,
-                                modifier = Modifier.size(32.dp)
+                            Text(
+                                "${resultado.diasRemidosPorTrabalho} dia${if (resultado.diasRemidosPorTrabalho != 1) "s" else ""}",
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.tertiary
                             )
                         }
 
                         HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
 
+                        // Remição por Estudo
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Column {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(
+                                        Icons.Default.School,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.secondary,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(
+                                        "Remição por Estudo",
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = MaterialTheme.colorScheme.secondary
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(4.dp))
                                 Text(
-                                    "Valor Econômico do Crime (VEC)",
-                                    fontSize = 14.sp,
+                                    "${resultado.horasEstudo} horas de estudo",
+                                    fontSize = 12.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
-                                Text(
-                                    formatadorMoeda.format(resultado.valorVEC),
-                                    fontSize = 24.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.primary
-                                )
                             }
+                            Text(
+                                "${resultado.diasRemidosPorEstudo} dia${if (resultado.diasRemidosPorEstudo != 1) "s" else ""}",
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.tertiary
+                            )
                         }
 
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(12.dp))
 
+                        // Card informativo
                         Card(
                             colors = CardDefaults.cardColors(
                                 containerColor = MaterialTheme.colorScheme.secondaryContainer
@@ -201,17 +265,27 @@ fun ResultadoVECScreen(navController: NavController) {
                                     modifier = Modifier.size(20.dp)
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    "O VEC corresponde a 3x o valor dos bens, conforme metodologia aplicada.",
-                                    fontSize = 12.sp,
-                                    lineHeight = 16.sp,
-                                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                                )
+                                Column {
+                                    Text(
+                                        "Regras Aplicadas:",
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        lineHeight = 16.sp,
+                                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                                    )
+                                    Text(
+                                        "• 3 dias de trabalho = 1 dia remido\n• 12 horas de estudo = 1 dia remido",
+                                        fontSize = 12.sp,
+                                        lineHeight = 16.sp,
+                                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                                    )
+                                }
                             }
                         }
                     }
                 }
 
+                // Dados de Contato
                 resultado.contatoUsuario?.let { contato ->
                     Card(
                         modifier = Modifier.fillMaxWidth(),
@@ -235,7 +309,7 @@ fun ResultadoVECScreen(navController: NavController) {
                                     Icons.Default.Person,
                                     contentDescription = null,
                                     modifier = Modifier.size(20.dp),
-                                    tint = MaterialTheme.colorScheme.primary
+                                    tint = MaterialTheme.colorScheme.secondary
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Column {
@@ -247,15 +321,92 @@ fun ResultadoVECScreen(navController: NavController) {
                                     Text(
                                         contato.nomeCompleto,
                                         fontSize = 14.sp,
-                                        fontWeight = FontWeight.Medium
+                                        fontWeight = FontWeight.Medium,
+                                        color = MaterialTheme.colorScheme.secondary
                                     )
                                 }
                             }
 
                             Spacer(modifier = Modifier.height(12.dp))
+
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    Icons.Default.Phone,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(20.dp),
+                                    tint = MaterialTheme.colorScheme.secondary
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Column {
+                                    Text(
+                                        "WhatsApp",
+                                        fontSize = 12.sp,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Text(
+                                        contato.whatsapp,
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = MaterialTheme.colorScheme.secondary
+                                    )
+                                }
+                            }
+
+                            if (contato.email.isNotBlank()) {
+                                Spacer(modifier = Modifier.height(12.dp))
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(
+                                        Icons.Default.Email,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(20.dp),
+                                        tint = MaterialTheme.colorScheme.secondary
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Column {
+                                        Text(
+                                            "E-mail",
+                                            fontSize = 12.sp,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                        Text(
+                                            contato.email,
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.Medium,
+                                            color = MaterialTheme.colorScheme.secondary
+                                        )
+                                    }
+                                }
+                            }
+
+                            if (contato.numeroProcesso.isNotBlank()) {
+                                Spacer(modifier = Modifier.height(12.dp))
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(
+                                        Icons.AutoMirrored.Filled.Article,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(20.dp),
+                                        tint = MaterialTheme.colorScheme.secondary
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Column {
+                                        Text(
+                                            "Número do Processo",
+                                            fontSize = 12.sp,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                        Text(
+                                            contato.numeroProcesso,
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.Medium,
+                                            color = MaterialTheme.colorScheme.secondary
+                                        )
+                                    }
+                                }
+                            }
+
                             Spacer(modifier = Modifier.height(16.dp))
 
-                            // Botão de contato via WhatsApp (CTA)
+                            // Botão CTA WhatsApp
                             Button(
                                 onClick = {
                                     val officeRaw = context.getString(R.string.office_whatsapp)
@@ -269,11 +420,14 @@ fun ResultadoVECScreen(navController: NavController) {
                                     val mensagem = buildString {
                                         append("Olá, meu nome é ")
                                         append(contato.nomeCompleto.ifBlank { "(não informado)" })
-                                        append(". Fiz um cálculo no app Calculadora Penal e gostaria de orientação. ")
-                                        append("Valor dos bens: ")
-                                        append(formatadorMoeda.format(resultado.valorBens))
-                                        append(" | VEC: ")
-                                        append(formatadorMoeda.format(resultado.valorVEC))
+                                        append(". Fiz um cálculo de remição no app Calculadora Penal. ")
+                                        append("Total de dias remidos: ")
+                                        append(resultado.totalDiasRemidos)
+                                        append(" (Trabalho: ")
+                                        append(resultado.diasRemidosPorTrabalho)
+                                        append(" + Estudo: ")
+                                        append(resultado.diasRemidosPorEstudo)
+                                        append(")")
                                         if (contato.numeroProcesso.isNotBlank()) {
                                             append(" | Processo: ")
                                             append(contato.numeroProcesso)
@@ -285,95 +439,24 @@ fun ResultadoVECScreen(navController: NavController) {
                                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                                     context.startActivity(intent)
                                 },
+                                modifier = Modifier.fillMaxWidth(),
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = MaterialTheme.colorScheme.tertiary
                                 )
                             ) {
-                                Icon(Icons.Default.Send, contentDescription = null)
+                                Icon(Icons.AutoMirrored.Filled.Send, contentDescription = null)
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(stringResource(id = R.string.cta_falar_advogado))
-                            }
-
-
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(
-                                    Icons.Default.Phone,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(20.dp),
-                                    tint = MaterialTheme.colorScheme.primary
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Column {
-                                    Text(
-                                        "WhatsApp",
-                                        fontSize = 12.sp,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                    Text(
-                                        contato.whatsapp,
-                                        fontSize = 14.sp,
-                                        fontWeight = FontWeight.Medium
-                                    )
-                                }
-                            }
-
-                            if (contato.email.isNotBlank()) {
-                                Spacer(modifier = Modifier.height(12.dp))
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Icon(
-                                        Icons.Default.Email,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(20.dp),
-                                        tint = MaterialTheme.colorScheme.primary
-                                    )
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Column {
-                                        Text(
-                                            "E-mail",
-                                            fontSize = 12.sp,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                                        )
-                                        Text(
-                                            contato.email,
-                                            fontSize = 14.sp,
-                                            fontWeight = FontWeight.Medium
-                                        )
-                                    }
-                                }
-                            }
-
-                            if (contato.numeroProcesso.isNotBlank()) {
-                                Spacer(modifier = Modifier.height(12.dp))
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Icon(
-                                        Icons.AutoMirrored.Filled.Article,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(20.dp),
-                                        tint = MaterialTheme.colorScheme.primary
-                                    )
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Column {
-                                        Text(
-                                            "Número do Processo",
-                                            fontSize = 12.sp,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                                        )
-                                        Text(
-                                            contato.numeroProcesso,
-                                            fontSize = 14.sp,
-                                            fontWeight = FontWeight.Medium
-                                        )
-                                    }
-                                }
                             }
                         }
                     }
                 }
 
+                // Próximos Passos
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer
+                        containerColor = MaterialTheme.colorScheme.surface
                     )
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
@@ -381,7 +464,7 @@ fun ResultadoVECScreen(navController: NavController) {
                             Icon(
                                 Icons.Default.Lightbulb,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                tint = MaterialTheme.colorScheme.secondary,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
@@ -389,31 +472,36 @@ fun ResultadoVECScreen(navController: NavController) {
                                 "Próximos Passos",
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onTertiaryContainer
+                                color = MaterialTheme.colorScheme.secondary
                             )
                         }
 
                         Spacer(modifier = Modifier.height(12.dp))
 
                         Text(
-                            "• Nossa equipe entrará em contato em breve\n" +
-                                    "• Análise completa do caso será realizada\n" +
-                                    "• Orientação jurídica especializada\n" +
-                                    "• Elaboração de estratégia de defesa",
+                            "• Documente todos os dias trabalhados e horas estudadas\n" +
+                                    "• Mantenha certificados e comprovantes\n" +
+                                    "• Nossa equipe pode auxiliar na formalização do pedido\n" +
+                                    "• Entre em contato para orientação jurídica completa",
                             fontSize = 14.sp,
                             lineHeight = 20.sp,
-                            color = MaterialTheme.colorScheme.onTertiaryContainer
+                            color = MaterialTheme.colorScheme.secondary
                         )
                     }
                 }
 
+                // Botões de Navegação
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     OutlinedButton(
                         onClick = { navController.popBackStack() },
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = MaterialTheme.colorScheme.tertiary
+                        ),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary)
                     ) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
                         Spacer(modifier = Modifier.width(4.dp))
@@ -421,10 +509,15 @@ fun ResultadoVECScreen(navController: NavController) {
                     }
 
                     Button(
-                        onClick = { navController.navigate("home") {
-                            popUpTo("home") { inclusive = false }
-                        } },
-                        modifier = Modifier.weight(1f)
+                        onClick = {
+                            navController.navigate("home") {
+                                popUpTo("home") { inclusive = false }
+                            }
+                        },
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.tertiary
+                        )
                     ) {
                         Icon(Icons.Default.Home, contentDescription = null)
                         Spacer(modifier = Modifier.width(4.dp))

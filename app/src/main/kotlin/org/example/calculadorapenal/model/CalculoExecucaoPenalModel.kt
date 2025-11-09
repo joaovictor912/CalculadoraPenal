@@ -192,7 +192,7 @@ object ExecucaoPenalCalculator {
         val diasRestantes = (penaTotalDias % 365) % 30
         
         return buildString {
-            append(" CÁLCULO DE EXECUÇÃO PENAL\n\n")
+            append("CÁLCULO DE EXECUÇÃO PENAL\n\n")
             
             append("DADOS DA PENA:\n")
             append("Pena Total: $anos ano(s), $mesesRestantes mês(es) e $diasRestantes dia(s)\n")

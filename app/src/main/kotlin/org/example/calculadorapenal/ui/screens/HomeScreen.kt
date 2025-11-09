@@ -83,7 +83,7 @@ fun HomeScreen(
             )
 
             Text(
-                text = "Cálculo de VEC e Execução Penal",
+                text = "Cálculos de Execução Penal e Remição",
                 fontSize = 14.sp,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -93,10 +93,10 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             MenuCard(
-                title = "Cálculo de VEC",
-                description = "Calcular Valor Econômico do Crime",
-                icon = Icons.Default.AttachMoney,
-                onClick = { navController.navigate(Screen.CalculoVEC.route) }
+                title = "Cálculo de Remição",
+                description = "Calcular dias remidos por trabalho e estudo (VEC)",
+                icon = Icons.Default.WorkOutline,
+                onClick = { navController.navigate(Screen.CalculoRemicao.route) }
             )
 
             MenuCard(

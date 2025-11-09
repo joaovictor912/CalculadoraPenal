@@ -3,12 +3,13 @@
 
     <item android:drawable="@color/fundo_app_azul" />
 
-    <item android:gravity="center">
-        <scale
-            android:drawable="@drawable/splash_logo"
-            android:scaleWidth="90%"
-            android:scaleHeight="90%"
-            android:useIntrinsicSizeAsMinimum="true" />
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/splash_logo"
+            android:tileMode="disabled"
+            android:antialias="true"
+            android:filter="true" />
     </item>
 
 </layer-list>
